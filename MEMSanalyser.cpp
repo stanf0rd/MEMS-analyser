@@ -91,8 +91,12 @@ int main(int argc, char *argv[]) {
     glTranslated(400, 0, 0);
 	glutDisplayFunc(draw);
     glutMainLoop();
+    for (int i=0; i<crossingsCount; i++) {
+        cout << "Crossing found! Angle is " << crossingsArray[i] << "\n";
+    }
     delete [] mems_xy;
     delete [] vectorArray;
+    delete [] crossingsArray;
 }
 
 //glut init
@@ -187,5 +191,4 @@ void genVectors() {
 #endif
         }
     }
-    cout << crossingsCount << "\n";
 }
