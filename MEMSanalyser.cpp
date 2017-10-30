@@ -4,6 +4,7 @@
 #include <stdlib.h>
 #include <math.h>
 #define VECTOR_END_Y 720
+#define ONLY_ONE_CROSSING 
 
 using namespace std;
 
@@ -24,6 +25,7 @@ struct mems {
 
 struct vector {
     int endX;
+    int endY;
     float angle;
 };
 
@@ -81,7 +83,7 @@ int main(int argc, char *argv[]) {
     glutInit(&argc, argv);
 	glutInitWindowSize(800, 720);
 	glutInitWindowPosition(550, 0); 
-	glutCreateWindow("MEMS Analyser v0.7.2");
+	glutCreateWindow("MEMS Analyser v0.9.0");
 //	glClearColor(1.0f, 1.0f, 1.0f, 1);
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
@@ -111,7 +113,7 @@ void draw() {
     glBegin(GL_LINES);
     for (int i=0; i<vectorCount; i++) {
         glVertex2f(0, 0);
-        glVertex2f(vectorArray[i].endX, VECTOR_END_Y); 
+        glVertex2f(vectorArray[i].endX, vectorArray[i].endY); 
     }
     glEnd();
     
@@ -155,10 +157,11 @@ void genFlat() {
 void genVectors() {
     int crossingsCount=0;
     for (int i=0; i<vectorCount; i++) {
-		//генерация конечной точки вектора 
+        //генерация конечной точки вектора
         int xEnd = -1400 + (rand()%2800);
         vectorArray[i].endX = xEnd; 
-		//подсчёт угла
+        vectorArray[i].endY = VECTOR_END_Y;
+        //подсчёт угла
         int opposCatet = abs(xEnd);
         int contCatet = VECTOR_END_Y;
         float angle = atan((float)contCatet/opposCatet);
@@ -172,8 +175,17 @@ void genVectors() {
 			//проверка совпадения найденной точки вектора и верхней части кондера
             if ((xVectorCoord < mems_xy[j].x) || 
                 (xVectorCoord > mems_xy[j].x + flat.length)) continue;
+#ifdef ONLY_ONE_CROSSING    
+            if (yVectorCoord < vectorArray[i].endY) {
+                if (vectorArray[i].endY == VECTOR_END_Y) 
+                    crossingsArray[crossingsCount++].angle = angle;
+                vectorArray[i].endX = xVectorCoord;
+                vectorArray[i].endY = yVectorCoord;
+            }
+#else
             crossingsArray[crossingsCount++].angle = angle;
-            cout << "Crossing found! Angle is " << angle << "\n";
+#endif
         }
     }
+    cout << crossingsCount << "\n";
 }
