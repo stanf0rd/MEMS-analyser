@@ -11,6 +11,7 @@ using namespace std;
 void draw();
 void genFlat();
 void genVectors();
+float countAngle(int, int);
 
 struct mems_dim {
 	int length;
@@ -30,7 +31,7 @@ struct vector {
 };
 
 struct crossing {
-    int angle;
+    float angle;
 };
 
 struct mems_dim flat {60, 8, 8};
@@ -80,6 +81,10 @@ int main(int argc, char *argv[]) {
 	genFlat();
     genVectors();
     
+    for (int i=0; i<crossingsCount; i++) {
+        cout << "Crossing found! Angle is " << crossingsArray[i].angle << "\n";
+    }
+
     //GLUT init
 	glutInitDisplayMode(GLUT_SINGLE | GLUT_RGBA);
     glutInit(&argc, argv);
@@ -93,9 +98,6 @@ int main(int argc, char *argv[]) {
     glTranslated(400, 0, 0);
 	glutDisplayFunc(draw);
     glutMainLoop();
-    for (int i=0; i<crossingsCount; i++) {
-        cout << "Crossing found! Angle is " << crossingsArray[i].angle << "\n";
-    }
     delete [] mems_xy;
     delete [] vectorArray;
     delete [] crossingsArray;
@@ -161,17 +163,12 @@ void genFlat() {
 }
 
 void genVectors() {
-    int crossingsCount=0;
+    crossingsCount=0;
     for (int i=0; i<vectorCount; i++) {
         //генерация конечной точки вектора
         int xEnd = -1400 + (rand()%2800);
         vectorArray[i].endX = xEnd; 
         vectorArray[i].endY = VECTOR_END_Y;
-        //подсчёт угла
-        int opposCatet = abs(xEnd);
-        int contCatet = VECTOR_END_Y;
-        float angle = atan((float)contCatet/opposCatet);
-        angle = angle*180/M_PI;
 		
         int xVectorCoord, yVectorCoord;
         for (int j=0; j<conderCount; j++) {
@@ -184,13 +181,21 @@ void genVectors() {
 #ifdef ONLY_ONE_CROSSING    
             if (yVectorCoord < vectorArray[i].endY) {
                 if (vectorArray[i].endY == VECTOR_END_Y) 
-                    crossingsArray[crossingsCount++].angle = angle;
+                    crossingsArray[crossingsCount++].angle = countAngle(xEnd, VECTOR_END_Y);
                 vectorArray[i].endX = xVectorCoord;
                 vectorArray[i].endY = yVectorCoord;
             }
 #else
-            crossingsArray[crossingsCount++].angle = angle;
+            crossingsArray[crossingsCount++].angle = countAngle(xEnd, VECTOR_END_Y);
 #endif
         }
     }
+}
+
+float countAngle(int xEnd, int yEnd) {
+    //подсчёт угла
+    int opposCatet = abs(xEnd);
+    int contCatet = yEnd;
+    float angle = atan((float)contCatet/opposCatet);
+    return angle*180/M_PI;
 }
