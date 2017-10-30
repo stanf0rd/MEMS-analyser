@@ -90,7 +90,7 @@ int main(int argc, char *argv[]) {
     glutInit(&argc, argv);
 	glutInitWindowSize(800, 720);
 	glutInitWindowPosition(550, 0); 
-	glutCreateWindow("MEMS Analyser v0.9.1");
+	glutCreateWindow("MEMS Analyser v0.9.3");
 //	glClearColor(1.0f, 1.0f, 1.0f, 1);
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
@@ -192,10 +192,10 @@ void genVectors() {
     }
 }
 
-float countAngle(int xEnd, int yEnd) {
+float countAngle(int xLength, int yLength) {
     //подсчёт угла
-    int opposCatet = abs(xEnd);
-    int contCatet = yEnd;
+    int opposCatet = abs(xLength);
+    int contCatet = yLength;
     float angle = atan((float)contCatet/opposCatet);
     return angle*180/M_PI;
 }
