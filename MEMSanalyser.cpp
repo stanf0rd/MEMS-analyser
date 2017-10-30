@@ -41,6 +41,7 @@ crossing *crossingsArray;
 
 int conderCount;
 int vectorCount;
+int crossingsCount;
 
 int main(int argc, char *argv[]) {
 	setlocale(LC_ALL, "RUS");
@@ -72,8 +73,9 @@ int main(int argc, char *argv[]) {
 
     mems_xy = new mems[conderCount];
     vectorArray = new vector[vectorCount];
-    if (conderCount < 20) crossingsArray = new crossing[conderCount*vectorCount];
-    else crossingsArray = new crossing[20*vectorCount];
+    if (conderCount < 20) crossingsCount = conderCount*vectorCount;
+    else crossingsCount = 20 * vectorCount;
+    crossingsArray = new crossing[crossingsCount];
 
 	genFlat();
     genVectors();
@@ -83,7 +85,7 @@ int main(int argc, char *argv[]) {
     glutInit(&argc, argv);
 	glutInitWindowSize(800, 720);
 	glutInitWindowPosition(550, 0); 
-	glutCreateWindow("MEMS Analyser v0.9.0");
+	glutCreateWindow("MEMS Analyser v0.9.1");
 //	glClearColor(1.0f, 1.0f, 1.0f, 1);
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
@@ -92,7 +94,7 @@ int main(int argc, char *argv[]) {
 	glutDisplayFunc(draw);
     glutMainLoop();
     for (int i=0; i<crossingsCount; i++) {
-        cout << "Crossing found! Angle is " << crossingsArray[i] << "\n";
+        cout << "Crossing found! Angle is " << crossingsArray[i].angle << "\n";
     }
     delete [] mems_xy;
     delete [] vectorArray;
