@@ -1,10 +1,8 @@
 #include <GL/glut.h>
 #include <iostream>
-#include <time.h>
-#include <stdlib.h>
 #include <math.h>
 #define VECTOR_END_Y 720
-#define ONLY_ONE_CROSSING 
+#define ONLY_ONE_CROSSING
 
 using namespace std;
 
@@ -81,23 +79,22 @@ int main(int argc, char *argv[]) {
 	genFlat();
     genVectors();
     
-    for (int i=0; i<crossingsCount; i++) {
+    for (int i=0; i<crossingsCount; i++)
         cout << "Crossing found! Angle is " << crossingsArray[i].angle << "\n";
-    }
-
+    
     //GLUT init
-	glutInitDisplayMode(GLUT_SINGLE | GLUT_RGBA);
     glutInit(&argc, argv);
+	glutInitDisplayMode(GLUT_SINGLE | GLUT_RGBA);
 	glutInitWindowSize(800, 720);
 	glutInitWindowPosition(550, 0); 
-	glutCreateWindow("MEMS Analyser v0.9.3");
-//	glClearColor(1.0f, 1.0f, 1.0f, 1);
-	glMatrixMode(GL_PROJECTION);
-	glLoadIdentity();
+	glutCreateWindow("MEMS Analyser v0.9.4");
+    glClearColor(1.0f, 1.0f, 1.0f, 1);
+    glClear(GL_COLOR_BUFFER_BIT);
     glOrtho(0.0, 800, 720, 0.0, 0.0, 1.0);
     glTranslated(400, 0, 0);
 	glutDisplayFunc(draw);
     glutMainLoop();
+
     delete [] mems_xy;
     delete [] vectorArray;
     delete [] crossingsArray;
@@ -105,15 +102,6 @@ int main(int argc, char *argv[]) {
 
 //glut init
 void draw() {
-    //cool white polygon 
-    glColor3ub(255, 255, 255);
-    glBegin(GL_POLYGON);
-    glVertex2i(-400, 0);
-    glVertex2i(400, 0);
-    glVertex2i(400, 720);
-    glVertex2i(-400, 720);
-    glEnd();
-    
     //vectors
     if (vectorCount > 70) glLineWidth(1);
     else glLineWidth(2);
