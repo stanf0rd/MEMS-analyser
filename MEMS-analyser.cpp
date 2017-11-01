@@ -2,6 +2,7 @@
 #include <GL/glut.h>
 #include <iostream>
 #include <time.h>
+#define _USE_MATH_DEFINES
 #include <math.h>
 #define VECTOR_END_Y 720
 #define ONLY_ONE_CROSSING
