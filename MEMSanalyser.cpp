@@ -1,14 +1,11 @@
-#if  defined(_WIN32) || defined(WIN32) || defined(_WIN64)
 #include "stdafx.h"
-#define _USE_MATH_DEFINES
-#endif
-
 #include <GL/glut.h>
 #include <iostream>
 #include <time.h>
 #include <math.h>
 #define VECTOR_END_Y 720
 #define ONLY_ONE_CROSSING
+#define _USE_MATH_DEFINES
 
 using namespace std;
 
