@@ -1,5 +1,6 @@
 #include <GL/glut.h>
 #include <iostream>
+#include <time.h>
 #include <math.h>
 #define VECTOR_END_Y 720
 #define ONLY_ONE_CROSSING
@@ -79,9 +80,6 @@ int main(int argc, char *argv[]) {
 	genFlat();
     genVectors();
     
-    for (int i=0; i<crossingsCount; i++)
-        cout << "Crossing found! Angle is " << crossingsArray[i].angle << "\n";
-    
     //GLUT init
     glutInit(&argc, argv);
 	glutInitDisplayMode(GLUT_SINGLE | GLUT_RGBA);
@@ -93,6 +91,10 @@ int main(int argc, char *argv[]) {
     glOrtho(0.0, 800, 720, 0.0, 0.0, 1.0);
     glTranslated(400, 0, 0);
 	glutDisplayFunc(draw);
+    
+    for (int i=0; i<crossingsCount; i++)
+    cout << "Crossing found! Angle is " << crossingsArray[i].angle << "\n";
+    
     glutMainLoop();
 
     delete [] mems_xy;
@@ -134,7 +136,7 @@ void draw() {
 }
 
 void genFlat() {
-    int i, j, counter;
+    int i, j;
 	for (i = 0; i < conderCount; i++) {
 		mems_xy[i].x = rand() % 720 - 400;
         mems_xy[i].y = 200 + rand() % 480;
