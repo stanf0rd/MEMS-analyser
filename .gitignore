@@ -3,4 +3,12 @@
 *~
 *test.cpp
 *test.c
-*.vscode
+*.lnk
+*log*
+*db
+ipch
+.vs*
+targetver.h
+stdafx.*
+*vcxproj*
+[Dd]ebug
