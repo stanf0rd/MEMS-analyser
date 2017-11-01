@@ -1,3 +1,8 @@
+#if  defined(_WIN32) || defined(WIN32) || defined(_WIN64)
+#include "stdafx.h"
+#define _USE_MATH_DEFINES
+#endif
+
 #include <GL/glut.h>
 #include <iostream>
 #include <time.h>
@@ -82,12 +87,9 @@ int main(int argc, char *argv[]) {
     
     //GLUT init
     glutInit(&argc, argv);
-	glutInitDisplayMode(GLUT_SINGLE | GLUT_RGBA);
 	glutInitWindowSize(800, 720);
 	glutInitWindowPosition(550, 0); 
-	glutCreateWindow("MEMS Analyser v0.9.4");
-    glClearColor(1.0f, 1.0f, 1.0f, 1);
-    glClear(GL_COLOR_BUFFER_BIT);
+	glutCreateWindow("MEMS Analyser v0.9.6");
     glOrtho(0.0, 800, 720, 0.0, 0.0, 1.0);
     glTranslated(400, 0, 0);
 	glutDisplayFunc(draw);
@@ -104,6 +106,15 @@ int main(int argc, char *argv[]) {
 
 //glut init
 void draw() {
+    //cool white polygon (for adequate window resizing)
+    glColor3f(1, 1, 1);
+    glBegin(GL_POLYGON);
+    glVertex2i(-400, 0);
+    glVertex2i(400, 0);
+    glVertex2i(400, 720);
+    glVertex2i(-400, 720);
+    glEnd();
+
     //vectors
     if (vectorCount > 70) glLineWidth(1);
     else glLineWidth(2);
