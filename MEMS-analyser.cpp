@@ -1,28 +1,30 @@
 #include "stdafx.h"
 #include <GL/glut.h>
 #include <iostream>
+#include <string>
 #include <time.h>
 #define _USE_MATH_DEFINES
 #include <math.h>
 #define ONLY_ONE_CROSSING
-#define _USE_MATH_DEFINES
 
 #define VECTOR_END_Y 720
 
 using namespace std;
 
+//cap is for condensator
+
 void draw();
-void genFlat();
+void genConders();
 void genVectors();
 float countAngle(int, int);
 
-struct mems_dim {
+struct condDim {
 	int length;
 	int pl_width;
 	int delta;
 };
 
-struct mems {
+struct condensator {
 	int x;
 	int y;
 };
@@ -37,13 +39,13 @@ struct crossing {
 	float angle;
 };
 
-struct mems_dim flat {60, 8, 8};
+struct condDim flat {60, 8, 8};
 
-mems *mems_xy;
+condensator *condCoords;
 vector *vectorArray;
 crossing *crossingsArray;
 
-int conderCount;
+int condCount;
 int vectorCount;
 int crossingsCount;
 
@@ -51,37 +53,48 @@ int main(int argc, char *argv[]) {
 	setlocale(LC_ALL, "RUS");
 	srand(time(NULL));
 
+	string inputLine;
 	if (argc == 1) {
-		vectorCount = conderCount = 10;
-		cout << "No args, conders and vectors amounts set to default (10).\n";
-	} else if (argc == 3) {
-		conderCount = atoi(argv[1]);
-		vectorCount = atoi(argv[2]);
-		if (conderCount < 1) {
-			conderCount = 10;
-			cout << "Wrong conders count, set to default (10).\n"; }
-		if (conderCount > 70) {
-			cout << "Too much conders, set to max (70)\n"; 
-			conderCount = 70; }
-		if (vectorCount < 1) {
-			vectorCount = 10;
-			cout << "Wrong vectors count, set to default (10).\n"; }
-		if (vectorCount > 1000) {
-			cout << "Too much vectors, set to max (1000)\n"; 
-			vectorCount = 1000; }
-	} else {
-		cout << "[programm call] [conders amount] [vectors amount]\n";
-		cout << "Example: ./a.out 20 7\n";
-		exit(0);
+		cout << "Число конденсаторов: ";
+		getline(cin, inputLine); } 
+	else if (argc == 3) inputLine = argv[1];
+	else {
+		cout << "[вызов программы] [число конденсаторов] [число векторов]\n";
+		cout << "Пример: ./a.out 20 7\n";
+		exit(0); }
+	try {condCount = stoi(inputLine, NULL, 10);}
+	catch (invalid_argument) {
+		if (inputLine.length()) cout << "Неверный ввод. ";
+		cout << "Установлено число конденсаторов по умолчанию (10)." << endl;
+		condCount = 10; }
+	catch (out_of_range) {condCount = 1000;}
+	if (condCount > 70) {
+		cout << "Слишком много конденсаторов, установлен максимум (70)." << endl; 
+		condCount = 70; 
 	}
-		
-	mems_xy = new mems[conderCount];
+
+	if (argc == 1) {
+		cout << "Число векторов: ";
+		getline(cin, inputLine); } 
+	else if (argc == 3) inputLine = argv[2];
+	try {vectorCount = stoi(inputLine, NULL, 10);}
+	catch (invalid_argument) {
+		if (inputLine.length()) cout << "Неверный ввод. ";
+		cout << "Установлено число векторов по умолчанию (10)." << endl;
+		vectorCount = 10; }
+	catch (out_of_range) {vectorCount = 1000000;}
+	if (vectorCount > 1000) {
+		cout << "Слишком много векторов, установлен максимум (1000)." << endl; 
+		vectorCount = 1000; 
+	}
+
+	condCoords = new condensator[condCount];
 	vectorArray = new vector[vectorCount];
-	if (conderCount < 20) crossingsCount = conderCount*vectorCount;
+	if (condCount < 20) crossingsCount = condCount*vectorCount;
 	else crossingsCount = 20 * vectorCount;
 	crossingsArray = new crossing[crossingsCount]; 
 
-	genFlat();
+	genConders();
 	genVectors();
 		
 	//GLUT init
@@ -121,36 +134,36 @@ void draw() {
 	}
 	glEnd();
 		
-	//conders
+	//condensators
 	glColor3ub(128, 128, 128);
-	for (int i = 0; i < conderCount; i++) {
+	for (int i = 0; i < condCount; i++) {
 		glBegin(GL_POLYGON);
-		glVertex2i(mems_xy[i].x, mems_xy[i].y);
-		glVertex2i(mems_xy[i].x + flat.length, mems_xy[i].y);
-		glVertex2i(mems_xy[i].x + flat.length, mems_xy[i].y + flat.pl_width);
-		glVertex2i(mems_xy[i].x, mems_xy[i].y + flat.pl_width);
+		glVertex2i(condCoords[i].x, condCoords[i].y);
+		glVertex2i(condCoords[i].x + flat.length, condCoords[i].y);
+		glVertex2i(condCoords[i].x + flat.length, condCoords[i].y + flat.pl_width);
+		glVertex2i(condCoords[i].x, condCoords[i].y + flat.pl_width);
 		glEnd();
 		
 		glBegin(GL_POLYGON);
-		glVertex2i(mems_xy[i].x, mems_xy[i].y + flat.pl_width + flat.delta);
-		glVertex2i(mems_xy[i].x + flat.length, mems_xy[i].y + flat.pl_width + flat.delta);
-		glVertex2i(mems_xy[i].x + flat.length, mems_xy[i].y + flat.delta + 2*flat.pl_width);
-		glVertex2i(mems_xy[i].x, mems_xy[i].y + flat.delta + 2*flat.pl_width);
+		glVertex2i(condCoords[i].x, condCoords[i].y + flat.pl_width + flat.delta);
+		glVertex2i(condCoords[i].x + flat.length, condCoords[i].y + flat.pl_width + flat.delta);
+		glVertex2i(condCoords[i].x + flat.length, condCoords[i].y + flat.delta + 2*flat.pl_width);
+		glVertex2i(condCoords[i].x, condCoords[i].y + flat.delta + 2*flat.pl_width);
 		glEnd();
 	}
 	glFlush();
 }
 
-void genFlat() {
+void genConders() {
 	int i, j;
-	for (i = 0; i < conderCount; i++) {
-		mems_xy[i].x = rand() % 720 - 400;
-		mems_xy[i].y = 200 + rand() % 480;
+	for (i = 0; i < condCount; i++) {
+		condCoords[i].x = rand() % 720 - 400;
+		condCoords[i].y = 200 + rand() % 480;
 		for (j = 0; j < i; j++) {
-			if (mems_xy[i].x >= mems_xy[j].x - flat.length - 2 * flat.delta &&
-				mems_xy[i].y >= mems_xy[j].y - 2 * flat.pl_width - 2 * flat.delta &&
-				mems_xy[i].x <= mems_xy[j].x + flat.length + 2 * flat.delta &&
-				mems_xy[i].y <= mems_xy[j].y + 2 * flat.pl_width + 2 * flat.delta) {
+			if (condCoords[i].x >= condCoords[j].x - flat.length - 2 * flat.delta &&
+				condCoords[i].y >= condCoords[j].y - 2 * flat.pl_width - 2 * flat.delta &&
+				condCoords[i].x <= condCoords[j].x + flat.length + 2 * flat.delta &&
+				condCoords[i].y <= condCoords[j].y + 2 * flat.pl_width + 2 * flat.delta) {
 					--i;
 					break;
 			}
@@ -167,13 +180,13 @@ void genVectors() {
 		vectorArray[i].endY = VECTOR_END_Y;
 		
 		int xVectorCoord, yVectorCoord;
-		for (int j=0; j<conderCount; j++) {
+		for (int j=0; j<condCount; j++) {
 			//вычисление координат точки вектора, лежащей на одной прямой с верхней частью кондера
-			yVectorCoord = mems_xy[j].y;
+			yVectorCoord = condCoords[j].y;
 			xVectorCoord = yVectorCoord*xEnd/VECTOR_END_Y;
 			//проверка совпадения найденной точки вектора и верхней части кондера
-			if ((xVectorCoord < mems_xy[j].x) || 
-				(xVectorCoord > mems_xy[j].x + flat.length)) continue;
+			if ((xVectorCoord < condCoords[j].x) || 
+				(xVectorCoord > condCoords[j].x + flat.length)) continue;
 #ifdef ONLY_ONE_CROSSING	
 			if (yVectorCoord < vectorArray[i].endY) {
 				if (vectorArray[i].endY == VECTOR_END_Y) 
