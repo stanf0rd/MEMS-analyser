@@ -101,7 +101,7 @@ int main(int argc, char *argv[]) {
 	glutInit(&argc, argv);
 	glutInitWindowSize(800, 720);
 	glutInitWindowPosition(550, 0); 
-	glutCreateWindow("MEMS Analyser v0.9.6");
+	glutCreateWindow("MEMS Analyser v0.9.10");
 	glOrtho(0.0, 800, 720, 0.0, 0.0, 1.0);
 	glTranslated(400, 0, 0);
 	glutDisplayFunc(draw);
