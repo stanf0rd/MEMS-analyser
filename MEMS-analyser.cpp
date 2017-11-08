@@ -1,8 +1,9 @@
-#include "stdafx.h"
+﻿#include "stdafx.h"
 #include <GL/glut.h>
 #include <iostream>
 #include <string>
 #include <time.h>
+#include "locale.h"
 #define _USE_MATH_DEFINES
 #include <math.h>
 #define ONLY_ONE_CROSSING
@@ -50,11 +51,12 @@ int vectorCount;
 int crossingsCount;
 
 int main(int argc, char *argv[]) {
-	setlocale(LC_ALL, "RUS");
+	setlocale(LC_ALL, "Russian");
 	srand(time(NULL));
+	
 
 	string inputLine;
-	if (argc == 1) {
+	if (argc == 1) {	
 		cout << "Число конденсаторов: ";
 		getline(cin, inputLine); } 
 	else if (argc == 3) inputLine = argv[1];
@@ -110,7 +112,6 @@ int main(int argc, char *argv[]) {
 		
 	for (int i=0; i<crossingsCount; i++)
 	cout << "Crossing found! Angle is " << crossingsArray[i].angle << "\n";
-		
 	glutMainLoop();
 }
 
@@ -154,6 +155,7 @@ void draw() {
 		glEnd();
 	}
 	glFlush();
+	glutPostRedisplay();
 }
 
 void genConders() {
