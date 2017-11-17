@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "elements.hpp"
 #include <GL/glut.h>
-#include "SOIL/SOIL.h"
+//#include "SOIL/SOIL.h"
 #include <iostream>
 #include <string>
 
@@ -10,6 +10,7 @@ using namespace std;
 //conder is for condensator
 
 void draw();
+void drawPolygon(int, int, int, int);
 
 conder **conders;
 vector **vectors;
@@ -64,11 +65,11 @@ int main(int argc, char *argv[]) {
 	
 	//GLUT init
 	glutInit(&argc, argv);
-	glutInitWindowSize(800, 720);
+	glutInitWindowSize(windowWidth, windowHeight);
 	glutInitWindowPosition(550, 0);
 	glutCreateWindow("MEMS-Analyser[CPP] v0.1");
-	glOrtho(0.0, 800, 720, 0.0, 0.0, 1.0);
-	glTranslated(400, 0, 0);
+	glOrtho(0.0, windowWidth, windowHeight, 0.0, 0.0, 1.0);
+	glTranslated(windowWidth/2, 0, 0);
 	glutDisplayFunc(draw);
 
 	cout << "Were created " << conder::getCount() << " conders" << endl;
@@ -83,10 +84,10 @@ void draw() {
 	//cool white polygon (for adequate window resizing)
 	glColor3f(1, 1, 1);
 	glBegin(GL_POLYGON);
-	glVertex2i(-400, 0);
-	glVertex2i(400, 0);
-	glVertex2i(400, 720);
-	glVertex2i(-400, 720);
+	glVertex2i(-windowWidth/2, 0);
+	glVertex2i(windowWidth/2, 0);
+	glVertex2i(windowWidth/2, windowHeight);
+	glVertex2i(-windowWidth/2, windowHeight);
 	glEnd();
 
 	//vectors
@@ -103,13 +104,22 @@ void draw() {
 	//conders
 	glColor3ub(128, 128, 128);
 	for (int i = 0; i < conder::getCount(); i++) {
-		glBegin(GL_POLYGON);
-		glVertex2i(conders[i]->getX(), conders[i]->getY());
-		glVertex2i(conders[i]->getX() + conder::getWidth(), conders[i]->getY());
-		glVertex2i(conders[i]->getX() + conder::getWidth(), conders[i]->getY() + conder::getHeight());
-		glVertex2i(conders[i]->getX(), conders[i]->getY() + conder::getHeight());
-		glEnd();
+		drawPolygon(
+			conders[i]->getX() - windowWidth/2 + conder::getDelta(), 
+			conders[i]->getY() + windowHeight/3, 
+			conder::getWidth(), 
+			conder::getHeight()
+		);
 	}
 	//glFlush();
 	glFinish();
+}
+
+void drawPolygon(int x, int y, int width, int height) {
+	glBegin(GL_POLYGON);
+		glVertex2i(x, y);
+		glVertex2i(x + width, y);
+		glVertex2i(x + width, y + height);
+		glVertex2i(x, y + height);
+	glEnd();
 }

@@ -6,27 +6,30 @@
 
 using namespace std;
 
+int conder::sum = 0;
 int conder::width = 60;
 int conder::height = 20;
-int conder::delta = 10;
+int conder::delta = 5;
 int conder::count = 0;
+conder** conder::array = NULL;
 
 conder::conder(int X, int Y) {
 	x = X;
 	y = Y;
 	count++;
-	cout << "conder created" << endl;
+//	cout << "conder created" << endl;
 }
 
 conder::~conder() {
 	count--;
-	cout << "conder removed" << endl;
+//	cout << "conder removed" << endl;
 }
 
 int conder::getX() {return x;}
 int conder::getY() {return y;}
 int conder::getWidth() {return width;}
 int conder::getHeight() {return height;}
+int conder::getDelta() {return delta;}
 int conder::getCount() {return count;}
 
 void conder::setConderSizes(int w, int h, int d) {
@@ -36,25 +39,39 @@ void conder::setConderSizes(int w, int h, int d) {
 }
 
 conder** conder::genConders(int count) {
-	conder** array = new conder*[count];
-	int x, y;
+	srand(time(NULL));
+	extern int windowWidth, windowHeight;
+	array = new conder*[count];
+	int x, y, tec = 0;
+	int condGenPlaceWidth = windowWidth - 2*delta - width;
+	int condGenPlaceHeight = windowHeight * 2/3 - height;
 	for (int i = 0; i < count; i++) {
-		x = rand() % 720 - 400;
-		y = 200 + rand() % 480;
-		array[i] = new conder(x, y);
-		for (int j = 0; j < i; j++) {
-			if (x >= array[j]->x - width - delta &&
-				x <= array[j]->x + width + delta &&
-				y >= array[j]->y - height - delta &&
-				y <= array[j]->y + height + delta) {
-					delete array[i];
-					i--;
-					break;
-			} 
+		x = rand() % (condGenPlaceWidth);
+		y = rand() % (condGenPlaceHeight);
+		if (checkPlace(x, y) == 1) {
+			array[i] = new conder(x, y);
+			tec = 0; }
+		else {
+			if (tec++ > 100000) break;
+			i--;
 		}
 	}
-	cout << "conders generated" << endl;
-	return &array[0];
+	cout << sum << endl;
+	return array;
+}
+
+int conder::checkPlace(int x, int y) {
+	for (int i = 0; i < count; i++) {
+		if (x >= array[i]->x - width - delta &&
+			x <= array[i]->x + width + delta &&
+			y >= array[i]->y - height - delta &&
+			y <= array[i]->y + height + delta) {
+				sum += i;
+				return 0;
+			}
+		}
+	sum += count;
+	return 1;
 }
 
 int vector::endY;
@@ -62,7 +79,7 @@ int vector::count;
 
 vector::vector(int X) {
 	endX = X;
-	cout << "vector created" << endl;
+//	cout << "vector created" << endl;
 }
 
 int vector::getEndX() {return endX;}
@@ -71,7 +88,6 @@ int vector::getCount() {return count;}
 void vector::setCount(int c) {count = c;}
 
 vector** vector::genVectors() {
-	srand(time(NULL));
 	extern int windowHeight;
 	vector::endY = windowHeight;
 	vector** array = new vector*[count];
@@ -97,7 +113,7 @@ vector** vector::genVectors() {
 #endif 
 		}*/
 	}
-	return &array[0];
+	return array;
 }
 
 /*float vector::countAngle(int xLength, int yLength) {

@@ -7,17 +7,21 @@ class conder {
 		int getY();
 		static int getWidth();
 		static int getHeight();
+		static int getDelta();
 		static void setConderSizes(int, int, int);
 		static conder** genConders(int);
 		static int getCount();
 	private:
 		int x;
 		int y;
-		conder(int, int);
+		static int sum;
 		static int width;
-		static int height; 
+		static int height;
 		static int delta; //free space between conders
+		static conder** array;
 		static int count;
+		conder(int, int);
+		static int checkPlace(int, int);
 		~conder();
 };
 
