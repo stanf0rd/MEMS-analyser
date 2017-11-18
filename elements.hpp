@@ -8,20 +8,18 @@ class conder {
 		static int getWidth();
 		static int getHeight();
 		static int getDelta();
+		static int getCount();
+		static conder** array;
 		static void setConderSizes(int, int, int);
 		static conder** genConders(int);
-		static int getCount();
 	private:
 		int x;
 		int y;
-		static int sum;
 		static int width;
 		static int height;
 		static int delta; //free space between conders
-		static conder** array;
 		static int count;
 		conder(int, int);
-		static int checkPlace(int, int);
 		~conder();
 };
 

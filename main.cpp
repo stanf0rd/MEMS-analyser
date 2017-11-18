@@ -12,7 +12,6 @@ using namespace std;
 void draw();
 void drawPolygon(int, int, int, int);
 
-conder **conders;
 vector **vectors;
 
 int windowWidth = 800;
@@ -60,9 +59,9 @@ int main(int argc, char *argv[]) {
 
 	conder::setConderSizes(30, 10, 5);
 	
-	conders = conder::genConders(askedConderCount);
+	conder::genConders(askedConderCount);
 	vectors = vector::genVectors();
-	
+
 	//GLUT init
 	glutInit(&argc, argv);
 	glutInitWindowSize(windowWidth, windowHeight);
@@ -105,8 +104,8 @@ void draw() {
 	glColor3ub(128, 128, 128);
 	for (int i = 0; i < conder::getCount(); i++) {
 		drawPolygon(
-			conders[i]->getX() - windowWidth/2 + conder::getDelta(), 
-			conders[i]->getY() + windowHeight/3, 
+			conder::array[i]->getX() - windowWidth/2 + conder::getDelta(), 
+			conder::array[i]->getY() + windowHeight/3, 
 			conder::getWidth(), 
 			conder::getHeight()
 		);
