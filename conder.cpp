@@ -1,13 +1,14 @@
 #include "elements.hpp"
 #include "iostream"
 #include <time.h>
- 
+
 using namespace std;
 
 short* conderMap;
 int mapWidth;
 int mapHeight;
 
+static void createConderMap();
 static void fillMap(int, int);
 
 int conder::width = 60;
@@ -39,38 +40,54 @@ void conder::setConderSizes(int w, int h, int d) {
 	delta = d;
 }
 
-conder** conder::genConders(int count) {
-	array = new conder*[count];
-	int x, y, tec = 0;
-	extern int windowWidth, windowHeight;
-	mapWidth = windowWidth - 2*delta - width;
-	mapHeight = windowHeight * 2/3 - height - delta;
-	conderMap = new short[mapWidth*mapHeight];
-	for (int i=0; i<mapWidth*mapHeight; i++) conderMap[i] = 0;
+conder** conder::genConders(int askedCount) {
+	array = new conder*[askedCount];
+	/*int mapSize = */createConderMap();
+	int x, y, tec = 0, i = 0;
 	srand(time(NULL));
-	int i = 0;
-	while (i != count) {
+	while (i != askedCount) {
 		x = rand() % (mapWidth);
 		y = rand() % (mapHeight);
 		if (conderMap[y*(mapWidth-1)+x] == 0) {
 			array[i++] = new conder(x, y);
-			fillMap(x, y); }
-		else if (tec++ > 20000) break;
+			fillMap(x, y); 
+			cout << "for conder #" <<i<<" there are "<<tec<<" cats"<< endl;
+			tec = 0;}
+		else if (tec++ == 100000) { 
+			cout << "Уместилось " << count << " конденсаторов." << endl;
+			break;
+		}
 	}
 	delete conderMap;
 	return array;
 }
 
 static void fillMap(int x, int y) {
-	int startDotX = x - conder::getWidth() - conder::getDelta() + 1,
-		startDotY = y - conder::getHeight() - conder::getDelta() + 1,
+	int startDotX = x - conder::getWidth() - conder::getDelta(),
+		startDotY = y - conder::getHeight() - conder::getDelta(),
 		stopDotX = x + conder::getWidth() + conder::getDelta(),
 		stopDotY = y + conder::getHeight() + conder::getDelta();
 	if (startDotX < 0) startDotX = 0;
 	if (startDotY < 0) startDotY = 0;
 	if (stopDotX > mapWidth) stopDotX = mapWidth;
 	if (stopDotY > mapHeight) stopDotY = mapHeight;
-	for (int i = startDotY; i < stopDotY; i++)
-		for (int j = startDotX; j < stopDotX; j++)
-			conderMap[i*(mapWidth-1) + (j)] = 1;
+//	cout << "filled from " << startDotX << "x" << startDotY;
+//	cout << " to " << stopDotX << "x" << stopDotY << endl;
+	for (int i = startDotY; i < stopDotY; i++) {
+		for (int j = startDotX; j < stopDotX; j++) {
+			//cout << conderMap[i*(mapWidth-1) + j];
+			conderMap[i*(mapWidth-1) + j] = 1;
+		}
+		//cout << endl;
+	}
+}
+
+static void createConderMap() {
+	extern int windowWidth, windowHeight;
+	mapWidth = windowWidth - conder::getDelta()*2 - conder::getWidth();
+	mapHeight = windowHeight*2/3 - conder::getHeight() - conder::getDelta();
+	conderMap = new short[mapWidth*mapHeight];
+	for (int i=0; i<mapWidth*mapHeight; i++) 
+		conderMap[i] = 0;
+	//return mapWidth*mapHeight;
 }

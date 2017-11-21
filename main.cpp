@@ -63,18 +63,23 @@ int main(int argc, char *argv[]) {
 	vectors = vector::genVectors();
 
 	//GLUT init
-	glutInit(&argc, argv);
+/*	glutInit(&argc, argv);
 	glutInitWindowSize(windowWidth, windowHeight);
 	glutInitWindowPosition(550, 0);
 	glutCreateWindow("MEMS-Analyser[CPP] v0.1");
 	glOrtho(0.0, windowWidth, windowHeight, 0.0, 0.0, 1.0);
 	glTranslated(windowWidth/2, 0, 0);
 	glutDisplayFunc(draw);
+*/
+	if (conder::getCount() == askedConderCount) 
+		cout << "Сгенерировано " << conder::getCount() << " конденсаторов." << endl;
+	cout << "Сгенерировано " << vector::getCount() << " векторов." << endl;
+	
+	//for (int j = 0; j< conder::getCount(); j++) {
+//		cout << conder::array[j]->getX() << " x " << conder::array[j]->getY() << endl;
+//	}
 
-	cout << "Were created " << conder::getCount() << " conders" << endl;
-	cout << "Were created " << vector::getCount() << " vectors" << endl;
-		
-	glutMainLoop();
+	//glutMainLoop();
 	return 0;
 }
 
