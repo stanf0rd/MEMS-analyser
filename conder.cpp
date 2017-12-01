@@ -16,6 +16,7 @@ int conder::height = 20;
 int conder::delta = 5;
 int conder::count = 0;
 conder** conder::array = NULL;
+extern int windowWidth, windowHeight;
 
 conder::conder(int X, int Y) {
 	x = X;
@@ -46,11 +47,13 @@ conder** conder::genConders(int askedCount) {
 	int x, y, tec = 0, i = 0;
 	srand(time(NULL));
 	while (i != askedCount) {
+		//conderMap coordinates
 		x = rand() % (mapWidth);
 		y = rand() % (mapHeight);
 		if (conderMap[y*(mapWidth-1)+x] == 0) {
-			array[i++] = new conder(x, y);
 			fillMap(x, y); 
+			//sending full window coordinates
+			array[i++] = new conder(x+delta, y);
 			cout << "for conder #" <<i<<" there are "<<tec<<" cats"<< endl;
 			tec = 0;}
 		else if (tec++ == 100000) { 
@@ -83,7 +86,6 @@ static void fillMap(int x, int y) {
 }
 
 static void createConderMap() {
-	extern int windowWidth, windowHeight;
 	mapWidth = windowWidth - conder::getDelta()*2 - conder::getWidth();
 	mapHeight = windowHeight*2/3 - conder::getHeight() - conder::getDelta();
 	conderMap = new short[mapWidth*mapHeight];

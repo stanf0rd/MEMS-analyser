@@ -3,55 +3,56 @@
 #include <time.h>
 #define _USE_MATH_DEFINES
 #include <math.h>
- 
+
 using namespace std;
 
-int vector::endY;
+extern int windowHeight;
+extern int windowWidth;
+vector** vector::array = NULL;
 int vector::count;
 
-vector::vector(int X) {
-	endX = X;
-//	cout << "vector created" << endl;
-}
-
+static float countAngle(int, int);
 int vector::getEndX() {return endX;}
 int vector::getEndY() {return endY;}
 int vector::getCount() {return count;}
 void vector::setCount(int c) {count = c;}
 
-vector** vector::genVectors() {
-	extern int windowHeight;
-	vector::endY = windowHeight;
-	vector** array = new vector*[count];
+vector::vector(int X) {
+	endX = X;
+	endY = windowHeight;
+	angle = countAngle(endX, endY);
+	cout << angle << endl;
+//	cout << "vector created" << endl;
+}
+
+void vector::genVectors() {
+	array = new vector*[count];
 	for (int i=0; i<count; i++) {
 		//генерация конечной точки вектора
 		array[i] = new vector(-1400 + (rand()%2800));
-/*		for (int j=0; j<count; j++) {
-			//вычисление координат точки вектора, лежащей на одной прямой с верхней частью кондера
-			endY = conders[j]->getY();
-			endX = endY*xEnd/VECTOR_END_Y;
-			//проверка совпадения найденной точки вектора и верхней части кондера
-			if ((endX < conders[j]->getX()) || 
-				(endX > conders[j]->getX() + conder::getWidth())) continue;
-#ifdef ONLY_ONE_CROSSING
-			if (endY < vectors[i].endY) {
-				if (vectors[i].endY == VECTOR_END_Y) 
-					crossingsArray[crossingsCount++].angle = countAngle(xEnd, VECTOR_END_Y);
-				vectors[i].endX = endX;
-				vectors[i].endY = endY;
-			}
-#else
-			crossingsArray[crossingsCount++].angle = countAngle(xEnd, VECTOR_END_Y);
-#endif 
-		}*/
 	}
-	return array;
+	// check()
 }
+/*
+	x = X-windowWidth/2;
+	y = Y;
+	float leftAngle, rightAngle;
+	if (x < 0) leftAngle = countAngle(x, y);
+	else leftAngle = countAngle(x, y+height);
 
-/*float vector::countAngle(int xLength, int yLength) {
-	//подсчёт угла
-	int opposCatet = abs(xLength);
-	int contCatet = yLength;
-	float angle = atan((float)contCatet/opposCatet);
+	if (x + width < 0) rightAngle = countAngle(x+width, y+height);
+	else rightAngle = countAngle(x+width, y);
+
+	cout << "leftAngle = " << leftAngle << endl;
+	cout << "rightAngle = " << rightAngle << endl;
+	count++;
+*/
+
+float countAngle(int x, int y) {
+	int opposCatet = x;
+//	int contCatet = y+windowHeight/3;
+	int contCatet = y;
+	//cout << "x = " << opposCatet << " y " << contCatet << endl;
+	float angle = atan((float)opposCatet/(float)contCatet);
 	return angle*180/M_PI;
-}*/
+}

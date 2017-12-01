@@ -12,8 +12,6 @@ using namespace std;
 void draw();
 void drawPolygon(int, int, int, int);
 
-vector **vectors;
-
 int windowWidth = 800;
 int windowHeight = 720;
 
@@ -57,20 +55,20 @@ int main(int argc, char *argv[]) {
 	}
 	vector::setCount(askedVectorCount);
 
-	conder::setConderSizes(30, 10, 5);
+	conder::setConderSizes(30, 10, 10);
 	
 	conder::genConders(askedConderCount);
-	vectors = vector::genVectors();
+	vector::genVectors();
 
 	//GLUT init
-/*	glutInit(&argc, argv);
+	glutInit(&argc, argv);
 	glutInitWindowSize(windowWidth, windowHeight);
 	glutInitWindowPosition(550, 0);
 	glutCreateWindow("MEMS-Analyser[CPP] v0.1");
 	glOrtho(0.0, windowWidth, windowHeight, 0.0, 0.0, 1.0);
 	glTranslated(windowWidth/2, 0, 0);
 	glutDisplayFunc(draw);
-*/
+
 	if (conder::getCount() == askedConderCount) 
 		cout << "Сгенерировано " << conder::getCount() << " конденсаторов." << endl;
 	cout << "Сгенерировано " << vector::getCount() << " векторов." << endl;
@@ -79,7 +77,7 @@ int main(int argc, char *argv[]) {
 //		cout << conder::array[j]->getX() << " x " << conder::array[j]->getY() << endl;
 //	}
 
-	//glutMainLoop();
+	glutMainLoop();
 	return 0;
 }
 
@@ -87,21 +85,15 @@ int main(int argc, char *argv[]) {
 void draw() {
 	//cool white polygon (for adequate window resizing)
 	glColor3f(1, 1, 1);
-	glBegin(GL_POLYGON);
-	glVertex2i(-windowWidth/2, 0);
-	glVertex2i(windowWidth/2, 0);
-	glVertex2i(windowWidth/2, windowHeight);
-	glVertex2i(-windowWidth/2, windowHeight);
-	glEnd();
+	drawPolygon(-windowWidth/2, 0, windowWidth, windowHeight);
 
-	//vectors
 	if (vector::getCount() > 70) glLineWidth(1);
 	else glLineWidth(2);
 	glColor3f(0, 0, 0);
 	glBegin(GL_LINES);
 	for (int i=0; i<vector::getCount(); i++) {
 		glVertex2f(0, 0);
-		glVertex2f(vectors[i]->getEndX(), vector::getEndY());
+		glVertex2f(vector::array[i]->getEndX(), vector::array[i]->getEndY());
 	}
 	glEnd();
 		
@@ -109,7 +101,7 @@ void draw() {
 	glColor3ub(128, 128, 128);
 	for (int i = 0; i < conder::getCount(); i++) {
 		drawPolygon(
-			conder::array[i]->getX() - windowWidth/2 + conder::getDelta(), 
+			conder::array[i]->getX() - windowWidth/2, 
 			conder::array[i]->getY() + windowHeight/3, 
 			conder::getWidth(), 
 			conder::getHeight()

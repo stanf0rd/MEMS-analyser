@@ -1,8 +1,28 @@
 #ifndef ELEMENTS
 #define ELEMENTS
 
+class vector {
+	public:
+		int getEndX();
+		int getEndY();
+		static int getCount();
+		static void setCount(int);
+		static vector** array;
+		static void genVectors();
+	private:
+		int endY;
+		int endX;
+		float angle;
+		static int count;
+		vector(int);
+		~vector();
+//		static float countAngle(int, int);
+};
+
 class conder {
 	public:
+		//int crossCount;
+		//vector** firstCross;
 		int getX();
 		int getY();
 		static int getWidth();
@@ -21,23 +41,6 @@ class conder {
 		static int count;
 		conder(int, int);
 		~conder();
-};
-
-class vector {
-	public:
-		int getEndX();
-		static int getEndY();
-		static int getCount();
-		static void setCount(int);
-		static vector** genVectors();
-	private:
-		static int count;
-		static int endY;
-		int endX;
-		float angle;
-		vector(int);
-		~vector();
-//		static float countAngle(int, int);
 };
 
 #endif
