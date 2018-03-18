@@ -1,7 +1,7 @@
 ﻿==========================================================
                        MEMS-analyser
                        
-    [PROJECT FREEZED AND WILL BE REWROTE USING PYTHON]
+  [PROJECT IS FROZEN AND WILL BE REWRITTEN USING PYTHON]
 ==========================================================
 
                      stanford: main code
