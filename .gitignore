@@ -1,0 +1,15 @@
+*.[oa]
+*.out
+*~
+vgcore*
+*test.cpp
+*test.c
+*.lnk
+*log*
+*db
+ipch
+.vs*
+targetver.h
+stdafx.*
+*vcxproj*
+[Dd]ebug
