@@ -8,28 +8,28 @@ using namespace std;
 
 extern int windowHeight;
 extern int windowWidth;
-vector** vector::array = NULL;
-int vector::count;
+Vector** Vector::array = NULL;
+int Vector::count;
 
 static float countAngle(int, int);
-int vector::getEndX() {return endX;}
-int vector::getEndY() {return endY;}
-int vector::getCount() {return count;}
-void vector::setCount(int c) {count = c;}
+int Vector::getEndX() {return endX;}
+int Vector::getEndY() {return endY;}
+int Vector::getCount() {return count;}
+void Vector::setCount(int c) {count = c;}
 
-vector::vector(int X) {
+Vector::Vector(int X) {
 	endX = X;
 	endY = windowHeight;
 	angle = countAngle(endX, endY);
 	cout << angle << endl;
-//	cout << "vector created" << endl;
+//	cout << "Vector created" << endl;
 }
 
-void vector::genVectors() {
-	array = new vector*[count];
+void Vector::GenVectors() {
+	array = new Vector*[count];
 	for (int i=0; i<count; i++) {
 		//генерация конечной точки вектора
-		array[i] = new vector(-1400 + (rand()%2800));
+		array[i] = new Vector(-1400 + (rand()%2800));
 	}
 	// check()
 }

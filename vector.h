@@ -1,19 +1,19 @@
 #pragma once
 
-class vector {
+class Vector {
     public:
         int getEndX();
         int getEndY();
         static int getCount();
         static void setCount(int);
-        static vector** array;
-        static void genVectors();
+        static Vector** array;
+        static void GenVectors();
     private:
         int endY;
         int endX;
         float angle;
         static int count;
-        vector(int);
-        ~vector();
+        Vector(int);
+        ~Vector();
 //      static float countAngle(int, int);
 };
