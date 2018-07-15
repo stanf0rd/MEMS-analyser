@@ -103,7 +103,9 @@ int main(int argc, char const *argv[]) {
                        << leak;
                 break;
             } catch(std::out_of_range) {
-                if (intAngle < floatAngle && intAngle > 1) intAngle--;
+                if (intAngle < floatAngle
+                && intAngle > 1
+                || intAngle == ANGLE_COUNT) intAngle--;
                 else intAngle++;
             }
             if (i != angleCount - 1) output << ", ";
