@@ -10,6 +10,7 @@
 #include <fstream>
 #include <cstdlib>
 #include <ctime>
+#include <cmath>
 
 using std::cout;
 using std::cin;
@@ -18,6 +19,7 @@ using std::ifstream;
 using std::ofstream;
 using std::string;
 using std::unordered_map;
+using std::round;
 
 
 void man() {
@@ -88,18 +90,21 @@ int main(int argc, char const *argv[]) {
     for (int j = 0; j != conderCount; j++) {
         for (int i = 0; i != angleCount; i++) {
             float floatAngle = static_cast<float>(rand())
-                             / static_cast<float>(RAND_MAX/(ANGLE_COUNT + 1));
-            int intAngle = static_cast<int>(floatAngle);
+                             / static_cast<float>(RAND_MAX/(ANGLE_COUNT));
+            int intAngle = round(floatAngle);
+            if (intAngle == 0) intAngle++;
             float leak = 0;
-            try {
+            while(1) try {
                 leak = angleTable.at(intAngle);
                 output << std::fixed
                        << std::showpoint
                        << std::setprecision(FLOAT_PRECISION)
                        << std::right
                        << leak;
+                break;
             } catch(std::out_of_range) {
-                output << std::setw(FLOAT_PRECISION + 2) << std::right << "fail";
+                if (intAngle < floatAngle && intAngle > 1) intAngle--;
+                else intAngle++;
             }
             if (i != angleCount - 1) output << ", ";
         } output << endl;
