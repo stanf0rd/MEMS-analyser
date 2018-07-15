@@ -1,6 +1,5 @@
 /* by stanford  */
 
-// #define CSV_IO_NO_THREAD
 #define ANGLE_COUNT 89
 
 #include <iostream>
