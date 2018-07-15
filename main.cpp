@@ -9,15 +9,15 @@
 #include <fstream>
 #include <cstdlib>
 #include <ctime>
-#include "csv.h"
 
 using std::cout;
 using std::cin;
 using std::endl;
+using std::ifstream;
+using std::ofstream;
 using std::string;
 using std::unordered_map;
 
-using io::CSVReader;
 
 void man() {
     cout << "     Welcome to MEMS-generator!     "     << "\n\n"
@@ -31,23 +31,24 @@ void man() {
 }
 
 bool makeAngleTable(const string filename, unordered_map<short, float> &angleTable) {
-    CSVReader<1> data(filename);
+    ifstream data(filename);
     float leak = 0;
     int angle = 1;
     while (angle != ANGLE_COUNT + 1) {
-        bool readSuccess = false;
-        try {
-            readSuccess = data.read_row(leak);
-        } catch(io::error::no_digit) {
+        data >> leak;
+        if (!data.good()) {
+            data.clear();
+            data.ignore(256, '\n');
             angle++;
             continue;
         }
         angleTable.insert(std::make_pair(angle++, leak * 1e6));
-        if (!readSuccess) break;
+        if (data.eof()) break;
     }
     if (angle != ANGLE_COUNT + 1) return false;
     else return true;
 }
+
 
 int main(int argc, char const *argv[]) {
     if (argc != 5) {
@@ -77,7 +78,7 @@ int main(int argc, char const *argv[]) {
     }
 
     std::srand(std::time(nullptr));
-    std::ofstream output(outFilename);
+    ofstream output(outFilename);
     if (!output.is_open()) {
         cout << "unable to open file " << "\"" << outFilename << "\"" << endl;
         return 0;
