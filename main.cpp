@@ -1,6 +1,7 @@
 /* by stanford  */
 
 #define ANGLE_COUNT 89
+#define FLOAT_PRECISION 4
 
 #include <iostream>
 #include <string>
@@ -86,17 +87,19 @@ int main(int argc, char const *argv[]) {
 
     for (int j = 0; j != conderCount; j++) {
         for (int i = 0; i != angleCount; i++) {
-            int angle = rand() % ANGLE_COUNT + 1;
+            float floatAngle = static_cast<float>(rand())
+                             / static_cast<float>(RAND_MAX/(ANGLE_COUNT + 1));
+            int intAngle = static_cast<int>(floatAngle);
             float leak = 0;
             try {
-                leak = angleTable.at(angle);
+                leak = angleTable.at(intAngle);
                 output << std::fixed
-                    << std::showpoint
-                    << std::setprecision(4)
-                    << std::right
-                    << leak;
+                       << std::showpoint
+                       << std::setprecision(FLOAT_PRECISION)
+                       << std::right
+                       << leak;
             } catch(std::out_of_range) {
-                output << std::setw(6) << std::right << "fail";
+                output << std::setw(FLOAT_PRECISION + 2) << std::right << "fail";
             }
             if (i != angleCount - 1) output << ", ";
         } output << endl;
