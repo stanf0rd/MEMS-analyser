@@ -1,7 +1,7 @@
 /* by stanford  */
 
 // #define CSV_IO_NO_THREAD
-#define ANGLE_COUNT 40
+#define ANGLE_COUNT 89
 
 #include <iostream>
 #include <string>
@@ -21,9 +21,9 @@ using std::unordered_map;
 using io::CSVReader;
 
 void man() {
-    cout << "     Welcome to MEMS-generator!     "   << "\n\n"
-         << "Start command example:   "              << "\n"
-         << "$ ./a.out data.csv output.txt 10 20 "   << "\n\n"
+    cout << "     Welcome to MEMS-generator!     "     << "\n\n"
+         << "Start command example:   "                << "\n"
+         << "$ ./a.out data.csv output.txt 10 20 "     << "\n\n"
          << "a.out     -  program file name"           << "\n"
          << "data.csv  -  file with 89 angle values from 1° to 90°"    << "\n"
          << "out.txt   -  file, where generated data will be written"  << "\n"
@@ -32,11 +32,19 @@ void man() {
 }
 
 bool makeAngleTable(const string filename, unordered_map<short, float> &angleTable) {
-    CSVReader<1> flat(filename);
+    CSVReader<1> data(filename);
     float leak = 0;
     int angle = 1;
-    while (flat.read_row(leak) && angle != ANGLE_COUNT + 1) {
+    while (angle != ANGLE_COUNT + 1) {
+        bool readSuccess = false;
+        try {
+            readSuccess = data.read_row(leak);
+        } catch(io::error::no_digit) {
+            angle++;
+            continue;
+        }
         angleTable.insert(std::make_pair(angle++, leak * 1e6));
+        if (!readSuccess) break;
     }
     if (angle != ANGLE_COUNT + 1) return false;
     else return true;
@@ -79,11 +87,17 @@ int main(int argc, char const *argv[]) {
     for (int j = 0; j != conderCount; j++) {
         for (int i = 0; i != angleCount; i++) {
             int angle = rand() % ANGLE_COUNT + 1;
-            output << std::fixed
-                   << std::showpoint
-                   << std::setprecision(2)
-                   << std::right
-                   << angleTable.at(angle);
+            float leak = 0;
+            try {
+                leak = angleTable.at(angle);
+                output << std::fixed
+                    << std::showpoint
+                    << std::setprecision(4)
+                    << std::right
+                    << leak;
+            } catch(std::out_of_range) {
+                output << std::setw(6) << std::right << "fail";
+            }
             if (i != angleCount - 1) output << ", ";
         } output << endl;
     }
