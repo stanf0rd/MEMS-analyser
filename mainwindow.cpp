@@ -12,7 +12,7 @@ MainWindow::MainWindow(QWidget *parent)
 :
 QMainWindow(parent),
 ui(new Ui::MainWindow)
-// , background(":/bg.png") 
+// , background(":/bg.png")
 {
     ui->setupUi(this);
     // ui->MapLabel->setPixmap(background);
@@ -44,7 +44,3 @@ MainWindow::~MainWindow() {
     // ui->MapLabel->setPixmap(background.scaled(w,h,Qt::KeepAspectRatio));
     // Your code here.
 } */
-
-void MainWindow::on_pushButton_clicked() {
-
-}
