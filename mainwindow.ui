@@ -48,7 +48,7 @@
        <enum>QLayout::SetMaximumSize</enum>
       </property>
       <item>
-       <widget class="ConderMapView" name="graphicsView">
+       <widget class="ConderMapView" name="conderMapView">
         <property name="minimumSize">
          <size>
           <width>400</width>
@@ -58,6 +58,12 @@
         <property name="styleSheet">
          <string notr="true"/>
         </property>
+        <property name="verticalScrollBarPolicy">
+         <enum>Qt::ScrollBarAlwaysOff</enum>
+        </property>
+        <property name="horizontalScrollBarPolicy">
+         <enum>Qt::ScrollBarAlwaysOff</enum>
+        </property>
        </widget>
       </item>
       <item>
@@ -65,7 +71,7 @@
         <item>
          <widget class="QTabWidget" name="tabWidget">
           <property name="currentIndex">
-           <number>1</number>
+           <number>0</number>
           </property>
           <widget class="QWidget" name="mainTab">
            <attribute name="title">

@@ -11,11 +11,13 @@ Q_OBJECT
 public:
     explicit ConderMapView(QWidget *parent = 0);
     // ~ConderMapView();
+    void drawScene();
 
 private:
     QGraphicsScene *scene;
     QGraphicsItemGroup *conders;
     QGraphicsItemGroup *tracks;
+
 // signals:
 
 // private slots:

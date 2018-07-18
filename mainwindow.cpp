@@ -28,6 +28,11 @@ MainWindow::~MainWindow() {
     delete ui;
 }
 
+void MainWindow::on_pushButton_clicked() {
+    this->ui->conderMapView->drawScene();
+};
+
+
 /* void MainWindow::resizeEvent(QResizeEvent* event) {
 //    QPixmap *map = ui->MapLabel->pixmap();
     // update();
