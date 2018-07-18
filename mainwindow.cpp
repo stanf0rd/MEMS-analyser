@@ -15,6 +15,12 @@ ui(new Ui::MainWindow)
 // , background(":/bg.png")
 {
     ui->setupUi(this);
+
+#ifdef _WIN32
+    // fixing windows-style button bug
+    ui->pushButton->setStyleSheet("margin: -1px; margin-right: 1px;");
+#endif
+
     // ui->MapLabel->setPixmap(background);
 }
 

@@ -129,8 +129,7 @@
            <bool>false</bool>
           </property>
           <property name="styleSheet">
-           <string notr="true">margin: -1px;
-margin-right: 1px;</string>
+           <string notr="true"/>
           </property>
           <property name="text">
            <string>Generate</string>
