@@ -10,7 +10,7 @@ Q_OBJECT
 
 public:
     explicit ConderMapView(QWidget *parent = 0);
-    ~ConderMapView();
+    // ~ConderMapView();
 
 private:
     QGraphicsScene *scene;

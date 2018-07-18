@@ -19,12 +19,14 @@ struct ConderMapSizes {
 class ConderMap {
 public:
     ConderMap(const ConderMapSizes, const ConderSizes);
-    ~ConderMap();
+    // ~ConderMap();
+
+    int GenConders(const int count);
 private:
     ConderSizes conderSizes;
     ConderMapSizes mapSizes;
 
-    Matrix<char> *map;
+    Matrix<bool> *map;
 
     int conderCount;
     vector<Conder> conders;

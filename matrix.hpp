@@ -19,7 +19,6 @@ struct Dot {
     Dot() = default;
     inline Dot(const Dot &dot);
     inline Dot(int, int);
-    // inline 
     inline friend Dot operator+(const Dot& left, const Dot& right);
     inline friend bool operator==(const Dot& left, const Dot& right);
     inline friend ostream& operator<<(ostream&, const Dot &dot);
@@ -137,6 +136,8 @@ int Matrix<T>::getHeight() const {
 template <typename T>
 int Matrix<T>::fill(const Dot &first, const Dot &last, const T value) {
 
+    int filled = 0;
+
     int startX = first.x < last.x ? first.x : last.x;
     int stopX  = first.x > last.x ? first.x : last.x;
     int startY = first.y < last.y ? first.y : last.y;
@@ -145,9 +146,11 @@ int Matrix<T>::fill(const Dot &first, const Dot &last, const T value) {
     for (int x = startX; x != stopX + 1; x++) {
         for (int y = startY; y != stopY + 1; y++) {
             array[x][y] = value;
+            filled++;
         }
     }
 
+    return filled;
 }
 
 }  // namespace simple_matrix

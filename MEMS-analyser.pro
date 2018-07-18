@@ -15,10 +15,17 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
         main.cpp \
-        mainwindow.cpp
+        mainwindow.cpp \
+        conder_map.cpp \
+        condermap_view.cpp \
+        track.cpp
 
 HEADERS += \
-        mainwindow.h
+        mainwindow.h \
+        conder.h \
+        conder_map.h \
+        condermap_view.h \
+        track.h
 
 FORMS += \
         mainwindow.ui

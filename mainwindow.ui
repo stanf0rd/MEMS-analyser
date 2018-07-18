@@ -65,7 +65,7 @@
         <item>
          <widget class="QTabWidget" name="tabWidget">
           <property name="currentIndex">
-           <number>0</number>
+           <number>1</number>
           </property>
           <widget class="QWidget" name="mainTab">
            <attribute name="title">
@@ -155,7 +155,7 @@ margin-right: 1px;</string>
   <customwidget>
    <class>ConderMapView</class>
    <extends>QGraphicsView</extends>
-   <header>conder_map_view.h</header>
+   <header>condermap_view.h</header>
   </customwidget>
  </customwidgets>
  <resources/>

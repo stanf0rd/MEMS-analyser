@@ -12,7 +12,7 @@ struct ConderSizes {
 class Conder {
     public:
         Conder(Dot _coord, ConderSizes *_sizes) : coord(_coord), sizes(_sizes) {};
-        ~Conder();
+        // ~Conder();
         Dot getCoord() const { return coord; };
         ConderSizes getSizes() const { return *sizes; };
         void setSizes(ConderSizes);

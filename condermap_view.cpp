@@ -1,5 +1,7 @@
+/* by stanford */
+
 #include "condermap_view.h"
- 
+
 ConderMapView::ConderMapView(QWidget *parent)
 : QGraphicsView(parent)
 , scene(new QGraphicsScene())
@@ -10,3 +12,5 @@ ConderMapView::ConderMapView(QWidget *parent)
     scene->addItem(conders);                // Добавляем первую группу в сцену
     scene->addItem(tracks);                 // Добавляем вторую группу в сцену
 }
+
+// ConderMapView::
