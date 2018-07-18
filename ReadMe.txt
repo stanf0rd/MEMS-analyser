@@ -2,9 +2,9 @@
                        MEMS-analyser
 ==========================================================
 
-                     stanford: main code
-                mouseartiom: Windows support 
+                        by stanford
 
 //////////////////////////////////////////////////////////
-                      powered by OpenGL
+                       written in C++
+                       powered by QT
 //////////////////////////////////////////////////////////
