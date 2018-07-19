@@ -13,24 +13,15 @@ TEMPLATE = app
 
 DEFINES += QT_DEPRECATED_WARNINGS
 
-SOURCES += \
-        main.cpp \
-        mainwindow.cpp \
-        conder_map.cpp \
-        condermap_view.cpp \
-        track.cpp
+SOURCES = $$files(*.cpp, true)
+HEADERS = $$files(*.h, true)
+FORMS = $$files(*.ui, true)
 
-HEADERS += \
-        mainwindow.h \
-        conder.h \
-        conder_map.h \
-        condermap_view.h \
-        track.h
-
-FORMS += \
-        mainwindow.ui
-
-RESOURCES = resources.qrc
+INCLUDEPATH += \
+    GUI \
+    libs \
+    config \
+    backend
 
 DESTDIR = $$PWD
 
