@@ -3,6 +3,8 @@
 //#include <QPicture>
 // #include <QPixmap>
 
+#include "configuration.h"
+// TODO: clean up includes
 #include <iostream>
 
 using std::cout;
@@ -29,6 +31,7 @@ MainWindow::~MainWindow() {
 }
 
 void MainWindow::on_pushButton_clicked() {
+    Configuration::Instance().Update();
     this->ui->conderMapView->drawScene();
 };
 
