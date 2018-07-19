@@ -7,6 +7,7 @@ struct ConderSizes {
     int width;
     int height;
     int delta;
+    ConderSizes(int w, int h, int d) : width(w), height(h), delta(d) {};
 };
 
 class Conder {

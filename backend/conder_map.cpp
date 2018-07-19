@@ -3,19 +3,22 @@
 #include <iostream>
 
 #include "conder_map.h"
-
+#include "configuration.h"
 
 ConderMapSizes::ConderMapSizes(const int _w, const int _h)
 : width(_w)
 , height(_h)
-, offset(offset)
-, topOffset(topOffset)
-{}
+{
+    auto &config = Configuration::Instance();
+    // offset = config.
+    // topOffset(topOffset)
+    // TODO: ConderMapSizes constructor
+}
 
 ConderMap::ConderMap(const ConderMapSizes mSizes, const ConderSizes cSizes)
-: conderCount(0)
-, conderSizes(cSizes)
-, mapSizes(mSizes) {
+: conderSizes(cSizes)
+, mapSizes(mSizes)
+, conderCount(0) {
     int matrixWidth = mapSizes.width - 2*mapSizes.offset - conderSizes.width;
     int matrixHeight = 2 * (mapSizes.height - mapSizes.offset) / 3;
     map = new Matrix<bool>(matrixWidth, matrixHeight, true);
