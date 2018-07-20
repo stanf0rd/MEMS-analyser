@@ -1,14 +1,14 @@
 #include <ctime>
 #include <cmath>
 #include <iostream>
+// TODO: if iostream is needed here?
 
 #include "conder_map.h"
 #include "configuration.h"
 
 ConderMapSizes::ConderMapSizes(const int _w, const int _h)
 : width(_w)
-, height(_h)
-{
+, height(_h) {
     auto &config = Configuration::Instance();
     offset = config.getOffset();
     topOffset = config.getTopOffset();
@@ -24,21 +24,25 @@ ConderMap::ConderMap(const ConderMapSizes mSizes, const ConderSizes cSizes)
 }
 
 int ConderMap::GenConders(const int count) {
+    auto const &config = Configuration::Instance();
     auto &matrix = *map;
     int x = 0, y = 0, i = 0, tec = 0;
+    int offset = config.getOffset();
     srand(time(nullptr));
     for (i = 0; i < count; i++) {
         x = rand() % (matrix.getWidth());
         y = rand() % (matrix.getHeight());
-        Dot begin(x, y);
-        Dot end(x + conderSizes.width, y + conderSizes.height);
         if (matrix[Dot(x, y)] == 0) {
-            matrix.fill(begin, end, 1);
+            Dot begin(x - conderSizes.width - offset,
+                      y - conderSizes.height - offset);
+            Dot end(x + conderSizes.width + offset,
+                    y + conderSizes.height + offset + 1);
+            matrix.fill(begin, end, 1, true);
 
-            Dot realBegin(begin + Dot(mapSizes.offset, mapSizes.offset));
+            Dot realBegin(Dot(x, y) + Dot(mapSizes.offset, mapSizes.offset));
             conders.push_back(Conder(realBegin, &conderSizes));
 
-            std::cout << "for Conder #" << i << " there are " << tec << " cats" << std::endl;
+            std::cout << "For conder #" << i << " there are " << tec << " cats" << std::endl;
             tec = 0;
         } else if (tec++ == 100000) {
             std::cout << "Уместилось " << i << " конденсаторов." << std::endl;
@@ -49,6 +53,8 @@ int ConderMap::GenConders(const int count) {
         }
     }
     conderCount = i;
+    std::cout << "ConderCount = " << i
+         << "; vector size = " << conders.size() << std::endl;
     return i;
 }
 

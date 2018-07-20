@@ -24,6 +24,7 @@ private:
     QGraphicsItemGroup *tracks;
     ConderMap *map;
     void resizeEvent(QResizeEvent *event);
-    // void deleteItemsFromGroup(QGraphicsItemGroup *group_1);
+    void ClearGroup(QGraphicsItemGroup *group);
 
+    // void deleteItemsFromGroup(QGraphicsItemGroup *group_1);
 };

@@ -32,6 +32,7 @@ MainWindow::~MainWindow() {
 
 void MainWindow::on_pushButton_clicked() {
     Configuration::Instance().Update();
+    this->ui->conderMapView->generateScene();
     this->ui->conderMapView->drawScene();
 };
 

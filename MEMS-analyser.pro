@@ -25,6 +25,8 @@ INCLUDEPATH += \
 
 DESTDIR = $$PWD
 
+QMAKE_CXXFLAGS += -g
+
 OBJECTS_DIR = $$PWD/temp/.obj
 MOC_DIR = $$PWD/temp/.moc
 RCC_DIR = $$PWD/temp/.rcc

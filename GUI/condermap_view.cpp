@@ -19,9 +19,9 @@ ConderMapView::ConderMapView(QWidget *parent)
 void ConderMapView::generateScene() {
     auto mapSizes = ConderMapSizes(this->width(), this->height());
     auto &config = Configuration::Instance();
-    ConderMap matrix(mapSizes, config.getConderSizes());
+    map = new ConderMap(mapSizes, config.getConderSizes());
     // TODO: send conderCount (through config)
-    matrix.GenConders(10);
+    map->GenConders(1000);
 }
 
 void ConderMapView::drawConder(Conder conder) {
@@ -43,13 +43,21 @@ void ConderMapView::drawConder(Conder conder) {
 }
 
 void ConderMapView::drawScene() {
+    ClearGroup(conders);
     scene->setSceneRect(0, 0, this->width(), this->height());
     // TODO: draw all conders here
-    auto const &conders = map->getConders();
-    for (auto conder : conders) {
+    auto const &conderVector = map->getConders();
+    // std::cout << conders.size() << std::endl;
+    for (auto conder : conderVector) {
         drawConder(conder);
     }
     fitInView(scene->sceneRect(), Qt::KeepAspectRatio);
+}
+
+void ConderMapView::ClearGroup(QGraphicsItemGroup *group) {
+    foreach(QGraphicsItem *item, scene->items(group->boundingRect())) {
+        if (item->group() == group) delete item;
+    }
 }
 
 void ConderMapView::resizeEvent(QResizeEvent *event) {
