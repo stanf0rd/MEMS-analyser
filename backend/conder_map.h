@@ -20,8 +20,8 @@ class ConderMap {
 public:
     ConderMap(const ConderMapSizes, const ConderSizes);
     // ~ConderMap();
-
     int GenConders(const int count);
+    const vector<Conder>& getConders() const;
 private:
     ConderSizes conderSizes;
     ConderMapSizes mapSizes;
@@ -29,5 +29,6 @@ private:
     Matrix<bool> *map;
 
     int conderCount;
+    // TODO: leftAngle, rightAngle
     vector<Conder> conders;
 };

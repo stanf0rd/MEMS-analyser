@@ -10,9 +10,8 @@ ConderMapSizes::ConderMapSizes(const int _w, const int _h)
 , height(_h)
 {
     auto &config = Configuration::Instance();
-    // offset = config.
-    // topOffset(topOffset)
-    // TODO: ConderMapSizes constructor
+    offset = config.getOffset();
+    topOffset = config.getTopOffset();
 }
 
 ConderMap::ConderMap(const ConderMapSizes mSizes, const ConderSizes cSizes)
@@ -26,22 +25,22 @@ ConderMap::ConderMap(const ConderMapSizes mSizes, const ConderSizes cSizes)
 
 int ConderMap::GenConders(const int count) {
     auto &matrix = *map;
-    int x = 0, y = 0, tec = 0;
+    int x = 0, y = 0, i = 0, tec = 0;
     srand(time(nullptr));
-    for (int i = 0; i < count; i++) {
+    for (i = 0; i < count; i++) {
         x = rand() % (matrix.getWidth());
         y = rand() % (matrix.getHeight());
-        Dot matrixBegin(x, y);
-        Dot matrixEnd(x + conderSizes.width, y + conderSizes.height);
+        Dot begin(x, y);
+        Dot end(x + conderSizes.width, y + conderSizes.height);
         if (matrix[Dot(x, y)] == 0) {
-            matrix.fill(matrixBegin, matrixEnd, 1);
+            matrix.fill(begin, end, 1);
 
-            Dot realBegin(matrixBegin + Dot(mapSizes.offset, mapSizes.offset));
+            Dot realBegin(begin + Dot(mapSizes.offset, mapSizes.offset));
             conders.push_back(Conder(realBegin, &conderSizes));
 
             std::cout << "for Conder #" << i << " there are " << tec << " cats" << std::endl;
             tec = 0;
-        } else if (tec++ == 1000000) {
+        } else if (tec++ == 100000) {
             std::cout << "Уместилось " << i << " конденсаторов." << std::endl;
             break;
         } else {
@@ -49,5 +48,11 @@ int ConderMap::GenConders(const int count) {
             i--;
         }
     }
-    return 5;
+    conderCount = i;
+    return i;
 }
+
+const vector<Conder>& ConderMap::getConders() const {
+    return conders;
+}
+

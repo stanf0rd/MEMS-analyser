@@ -8,6 +8,8 @@ Configuration::Configuration()
 , topOffset(defaultTopOffset)
 {
     ReadConfigFile();
+    // TODO: set defaults to mainwindow
+    Update();
 }
 
 void Configuration::ReadConfigFile() {
@@ -16,7 +18,6 @@ void Configuration::ReadConfigFile() {
 
 Configuration& Configuration::Instance() {
     static Configuration c;
-    c.Update();
     return c;
 }
 
@@ -30,4 +31,8 @@ const int& Configuration::getOffset() const {
 
 const int& Configuration::getTopOffset() const {
     return topOffset;
+}
+
+const ConderSizes& Configuration::getConderSizes() const {
+    return conderSizes;
 }
