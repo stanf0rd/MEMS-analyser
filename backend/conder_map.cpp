@@ -1,7 +1,7 @@
 #include <ctime>
 #include <cmath>
 #include <iostream>
-// TODO: if iostream is needed here?
+// TODO: is iostream needed here?
 
 #include "conder_map.h"
 #include "configuration.h"
