@@ -54,7 +54,8 @@ public:
     bool DotIsValid(const Dot &dot) const;
     int getWidth() const;
     int getHeight() const;
-    int fill(const Dot &first, const Dot &last, const T value);
+    int fill(const Dot &first, const Dot &last,
+             const T value, const bool toBorders = false);
 
     T& operator[](const Dot &dot);
     const T& operator[](const Dot &dot) const;
@@ -134,7 +135,14 @@ int Matrix<T>::getHeight() const {
 }
 
 template <typename T>
-int Matrix<T>::fill(const Dot &first, const Dot &last, const T value) {
+int Matrix<T>::fill(const Dot &first, const Dot &last,
+                    const T value, const bool toBorders) {
+
+    if (toBorders == false
+    && (!DotIsValid(first) || !DotIsValid(last))) {
+        cerr << "Dots are invalid. Out of matrix." << endl;
+        throw std::out_of_range( " writing failed " );
+    }
 
     int filled = 0;
 
@@ -142,6 +150,11 @@ int Matrix<T>::fill(const Dot &first, const Dot &last, const T value) {
     int stopX  = first.x > last.x ? first.x : last.x;
     int startY = first.y < last.y ? first.y : last.y;
     int stopY  = first.y > last.y ? first.y : last.y;
+
+    if (startX < 0) startX = 0;
+    if (stopX >= width) stopX = width - 1;
+    if (startY < 0) startY = 0;
+    if (stopY >= height) stopY = height - 1;
 
     for (int x = startX; x != stopX + 1; x++) {
         for (int y = startY; y != stopY + 1; y++) {
