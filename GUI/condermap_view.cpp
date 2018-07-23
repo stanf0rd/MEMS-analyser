@@ -14,6 +14,7 @@ ConderMapView::ConderMapView(QWidget *parent)
     this->scale(1, -1);         // flip on 180 degrees
     scene->addItem(conders);
     scene->addItem(tracks);
+    srand(time(nullptr));       // for conder generation
 }
 
 void ConderMapView::generateScene() {

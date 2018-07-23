@@ -1,4 +1,3 @@
-#include <ctime>
 #include <cmath>
 #include <iostream>
 // TODO: is iostream needed here?
@@ -28,7 +27,6 @@ int ConderMap::GenConders(const int count) {
     auto &matrix = *map;
     int x = 0, y = 0, i = 0, tec = 0;
     int offset = config.getOffset();
-    srand(time(nullptr));
     for (i = 0; i < count; i++) {
         x = rand() % (matrix.getWidth());
         y = rand() % (matrix.getHeight());
