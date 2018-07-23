@@ -36,3 +36,11 @@
     const int defaultTopOffset = 20;    // in percent
 /*
 \*****************************************************/
+
+
+/************** DEFAULT VECTOR SETTINGS **************\
+*/
+    const int defaultVectorY = 0;  // on top of the map
+    // defaultVectorX = ConderMapSize/2
+/*
+\*****************************************************/

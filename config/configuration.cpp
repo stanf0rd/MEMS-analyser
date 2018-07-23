@@ -8,8 +8,7 @@ Configuration::Configuration()
 , topOffset(defaultTopOffset)
 {
     ReadConfigFile();
-    // TODO: set defaults to mainwindow
-    Update();
+    Update();  // set defaults to mainwindow boxes
 }
 
 void Configuration::ReadConfigFile() {
@@ -22,7 +21,7 @@ Configuration& Configuration::Instance() {
 }
 
 void Configuration::Update() {
-    /* call mainwindow's method getInputValues or like that */
+    // TODO: /* call mainwindow's method getInputValues or like that */
 }
 
 const int& Configuration::getOffset() const {

@@ -14,7 +14,6 @@ MainWindow::MainWindow(QWidget *parent)
 :
 QMainWindow(parent),
 ui(new Ui::MainWindow)
-// , background(":/bg.png")
 {
     ui->setupUi(this);
 
@@ -22,7 +21,6 @@ ui(new Ui::MainWindow)
     // fixing windows-style button bug
     ui->pushButton->setStyleSheet("margin: -1px; margin-right: 1px;");
 #endif
-
     // ui->MapLabel->setPixmap(background);
 }
 
