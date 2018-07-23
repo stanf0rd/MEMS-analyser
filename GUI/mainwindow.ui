@@ -69,17 +69,28 @@
       <item>
        <layout class="QVBoxLayout" name="verticalLayout_3">
         <item>
-         <widget class="QTabWidget" name="tabWidget">
-          <property name="currentIndex">
-           <number>0</number>
+         <widget class="QScrollArea" name="scrollArea">
+          <property name="widgetResizable">
+           <bool>true</bool>
           </property>
-          <widget class="QWidget" name="mainTab">
-           <attribute name="title">
-            <string>Main</string>
-           </attribute>
-           <layout class="QVBoxLayout" name="verticalLayout_4" stretch="0,0,0">
+          <widget class="QWidget" name="scrollAreaWidgetContents_2">
+           <property name="geometry">
+            <rect>
+             <x>0</x>
+             <y>0</y>
+             <width>341</width>
+             <height>775</height>
+            </rect>
+           </property>
+           <layout class="QVBoxLayout" name="verticalLayout">
             <item>
              <widget class="QGroupBox" name="objectSettings">
+              <property name="minimumSize">
+               <size>
+                <width>0</width>
+                <height>100</height>
+               </size>
+              </property>
               <property name="title">
                <string>Objects</string>
               </property>
@@ -91,6 +102,18 @@
                    <width>60</width>
                    <height>25</height>
                   </size>
+                 </property>
+                 <property name="layoutDirection">
+                  <enum>Qt::RightToLeft</enum>
+                 </property>
+                 <property name="autoFillBackground">
+                  <bool>true</bool>
+                 </property>
+                 <property name="wrapping">
+                  <bool>true</bool>
+                 </property>
+                 <property name="frame">
+                  <bool>false</bool>
                  </property>
                 </widget>
                </item>
@@ -109,11 +132,14 @@
                    <height>25</height>
                   </size>
                  </property>
+                 <property name="layoutDirection">
+                  <enum>Qt::RightToLeft</enum>
+                 </property>
                  <property name="wrapping">
                   <bool>true</bool>
                  </property>
                  <property name="frame">
-                  <bool>true</bool>
+                  <bool>false</bool>
                  </property>
                  <property name="readOnly">
                   <bool>false</bool>
@@ -140,121 +166,13 @@
              </widget>
             </item>
             <item>
-             <widget class="QGroupBox" name="capacitorSettings">
-              <property name="title">
-               <string>Capacitor dimensions</string>
-              </property>
-              <layout class="QFormLayout" name="formLayout_2">
-               <item row="0" column="0">
-                <widget class="QSpinBox" name="conderHeightBox">
-                 <property name="minimumSize">
-                  <size>
-                   <width>60</width>
-                   <height>25</height>
-                  </size>
-                 </property>
-                 <property name="wrapping">
-                  <bool>true</bool>
-                 </property>
-                 <property name="frame">
-                  <bool>true</bool>
-                 </property>
-                 <property name="readOnly">
-                  <bool>false</bool>
-                 </property>
-                 <property name="buttonSymbols">
-                  <enum>QAbstractSpinBox::UpDownArrows</enum>
-                 </property>
-                 <property name="accelerated">
-                  <bool>false</bool>
-                 </property>
-                 <property name="showGroupSeparator" stdset="0">
-                  <bool>false</bool>
-                 </property>
-                </widget>
-               </item>
-               <item row="0" column="1">
-                <widget class="QLabel" name="label">
-                 <property name="text">
-                  <string>Height</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="1" column="0">
-                <widget class="QSpinBox" name="conderWidthBox">
-                 <property name="minimumSize">
-                  <size>
-                   <width>60</width>
-                   <height>25</height>
-                  </size>
-                 </property>
-                 <property name="wrapping">
-                  <bool>true</bool>
-                 </property>
-                 <property name="frame">
-                  <bool>true</bool>
-                 </property>
-                 <property name="readOnly">
-                  <bool>false</bool>
-                 </property>
-                 <property name="buttonSymbols">
-                  <enum>QAbstractSpinBox::UpDownArrows</enum>
-                 </property>
-                 <property name="accelerated">
-                  <bool>false</bool>
-                 </property>
-                 <property name="showGroupSeparator" stdset="0">
-                  <bool>false</bool>
-                 </property>
-                </widget>
-               </item>
-               <item row="1" column="1">
-                <widget class="QLabel" name="label_2">
-                 <property name="text">
-                  <string>Width</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="2" column="0">
-                <widget class="QSpinBox" name="conderDeltaBox">
-                 <property name="minimumSize">
-                  <size>
-                   <width>60</width>
-                   <height>25</height>
-                  </size>
-                 </property>
-                 <property name="wrapping">
-                  <bool>true</bool>
-                 </property>
-                 <property name="frame">
-                  <bool>true</bool>
-                 </property>
-                 <property name="readOnly">
-                  <bool>false</bool>
-                 </property>
-                 <property name="buttonSymbols">
-                  <enum>QAbstractSpinBox::UpDownArrows</enum>
-                 </property>
-                 <property name="accelerated">
-                  <bool>false</bool>
-                 </property>
-                 <property name="showGroupSeparator" stdset="0">
-                  <bool>false</bool>
-                 </property>
-                </widget>
-               </item>
-               <item row="2" column="1">
-                <widget class="QLabel" name="label_3">
-                 <property name="text">
-                  <string>Delta</string>
-                 </property>
-                </widget>
-               </item>
-              </layout>
-             </widget>
-            </item>
-            <item>
              <widget class="QGroupBox" name="graphicsAreaSettings">
+              <property name="minimumSize">
+               <size>
+                <width>0</width>
+                <height>100</height>
+               </size>
+              </property>
               <property name="title">
                <string>Graphics area settings</string>
               </property>
@@ -267,11 +185,17 @@
                    <height>25</height>
                   </size>
                  </property>
+                 <property name="layoutDirection">
+                  <enum>Qt::RightToLeft</enum>
+                 </property>
+                 <property name="autoFillBackground">
+                  <bool>true</bool>
+                 </property>
                  <property name="wrapping">
                   <bool>true</bool>
                  </property>
                  <property name="frame">
-                  <bool>true</bool>
+                  <bool>false</bool>
                  </property>
                  <property name="readOnly">
                   <bool>false</bool>
@@ -302,11 +226,17 @@
                    <height>25</height>
                   </size>
                  </property>
+                 <property name="layoutDirection">
+                  <enum>Qt::RightToLeft</enum>
+                 </property>
+                 <property name="autoFillBackground">
+                  <bool>true</bool>
+                 </property>
                  <property name="wrapping">
                   <bool>true</bool>
                  </property>
                  <property name="frame">
-                  <bool>true</bool>
+                  <bool>false</bool>
                  </property>
                  <property name="readOnly">
                   <bool>false</bool>
@@ -332,12 +262,145 @@
               </layout>
              </widget>
             </item>
+            <item>
+             <widget class="QGroupBox" name="capacitorSettings">
+              <property name="minimumSize">
+               <size>
+                <width>0</width>
+                <height>150</height>
+               </size>
+              </property>
+              <property name="title">
+               <string>Capacitor dimensions</string>
+              </property>
+              <layout class="QFormLayout" name="formLayout_2">
+               <item row="0" column="0">
+                <widget class="QSpinBox" name="conderHeightBox">
+                 <property name="minimumSize">
+                  <size>
+                   <width>60</width>
+                   <height>25</height>
+                  </size>
+                 </property>
+                 <property name="layoutDirection">
+                  <enum>Qt::RightToLeft</enum>
+                 </property>
+                 <property name="autoFillBackground">
+                  <bool>true</bool>
+                 </property>
+                 <property name="wrapping">
+                  <bool>true</bool>
+                 </property>
+                 <property name="frame">
+                  <bool>false</bool>
+                 </property>
+                 <property name="readOnly">
+                  <bool>false</bool>
+                 </property>
+                 <property name="buttonSymbols">
+                  <enum>QAbstractSpinBox::UpDownArrows</enum>
+                 </property>
+                 <property name="accelerated">
+                  <bool>false</bool>
+                 </property>
+                 <property name="showGroupSeparator" stdset="0">
+                  <bool>false</bool>
+                 </property>
+                </widget>
+               </item>
+               <item row="0" column="1">
+                <widget class="QLabel" name="label">
+                 <property name="text">
+                  <string>Height</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="1" column="0">
+                <widget class="QSpinBox" name="conderWidthBox">
+                 <property name="minimumSize">
+                  <size>
+                   <width>60</width>
+                   <height>25</height>
+                  </size>
+                 </property>
+                 <property name="layoutDirection">
+                  <enum>Qt::RightToLeft</enum>
+                 </property>
+                 <property name="autoFillBackground">
+                  <bool>true</bool>
+                 </property>
+                 <property name="wrapping">
+                  <bool>true</bool>
+                 </property>
+                 <property name="frame">
+                  <bool>false</bool>
+                 </property>
+                 <property name="readOnly">
+                  <bool>false</bool>
+                 </property>
+                 <property name="buttonSymbols">
+                  <enum>QAbstractSpinBox::UpDownArrows</enum>
+                 </property>
+                 <property name="accelerated">
+                  <bool>false</bool>
+                 </property>
+                 <property name="showGroupSeparator" stdset="0">
+                  <bool>false</bool>
+                 </property>
+                </widget>
+               </item>
+               <item row="1" column="1">
+                <widget class="QLabel" name="label_2">
+                 <property name="text">
+                  <string>Width</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="2" column="0">
+                <widget class="QSpinBox" name="conderDeltaBox">
+                 <property name="minimumSize">
+                  <size>
+                   <width>60</width>
+                   <height>25</height>
+                  </size>
+                 </property>
+                 <property name="layoutDirection">
+                  <enum>Qt::RightToLeft</enum>
+                 </property>
+                 <property name="autoFillBackground">
+                  <bool>true</bool>
+                 </property>
+                 <property name="wrapping">
+                  <bool>true</bool>
+                 </property>
+                 <property name="frame">
+                  <bool>false</bool>
+                 </property>
+                 <property name="readOnly">
+                  <bool>false</bool>
+                 </property>
+                 <property name="buttonSymbols">
+                  <enum>QAbstractSpinBox::UpDownArrows</enum>
+                 </property>
+                 <property name="accelerated">
+                  <bool>false</bool>
+                 </property>
+                 <property name="showGroupSeparator" stdset="0">
+                  <bool>false</bool>
+                 </property>
+                </widget>
+               </item>
+               <item row="2" column="1">
+                <widget class="QLabel" name="label_3">
+                 <property name="text">
+                  <string>Delta</string>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </widget>
+            </item>
            </layout>
-          </widget>
-          <widget class="QWidget" name="advancedTab">
-           <attribute name="title">
-            <string>Advanced</string>
-           </attribute>
           </widget>
          </widget>
         </item>
