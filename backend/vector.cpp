@@ -1,4 +1,4 @@
-/* #include "track.h"
+/* #include "vector.h"
 #include <iostream>
 #include <time.h>
 #define _USE_MATH_DEFINES
@@ -8,28 +8,28 @@ using namespace std;
 
 extern int windowHeight;
 extern int windowWidth;
-Track** Track::array = NULL;
-int Track::count;
+Vector** Vector::array = NULL;
+int Vector::count;
 
 static float countAngle(int, int);
-int Track::getEndX() {return endX;}
-int Track::getEndY() {return endY;}
-int Track::getCount() {return count;}
-void Track::setCount(int c) {count = c;}
+int Vector::getEndX() {return endX;}
+int Vector::getEndY() {return endY;}
+int Vector::getCount() {return count;}
+void Vector::setCount(int c) {count = c;}
 
-Track::Track(int X) {
+Vector::Vector(int X) {
 	endX = X;
 	endY = windowHeight;
 	angle = countAngle(endX, endY);
 	cout << angle << endl;
-//	cout << "Track created" << endl;
+//	cout << "Vector created" << endl;
 }
 
-void Track::GenTracks() {
-	array = new Track*[count];
+void Vector::GenVectors() {
+	array = new Vector*[count];
 	for (int i=0; i<count; i++) {
 		//генерация конечной точки вектора
-		array[i] = new Track(-1400 + (rand()%2800));
+		array[i] = new Vector(-1400 + (rand()%2800));
 	}
 	// check()
 } */
