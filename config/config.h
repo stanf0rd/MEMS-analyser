@@ -33,7 +33,7 @@
 /***************** DEFAULT MAP SIZES *****************\
 */
     const int defaultOffset = 5;        // in pixels
-    const int defaultTopOffset = 20;    // in percent
+    const int defaultTopOffset = 30;    // in percent
 /*
 \*****************************************************/
 

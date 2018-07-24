@@ -14,6 +14,9 @@ private:
     ConderSizes conderSizes;
     int offset;
     int topOffset;
+    int askedConderCount;
+    int vectorCount;
+
     Configuration();
     ~Configuration() = default;
     void ReadConfigFile();

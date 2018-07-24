@@ -67,7 +67,7 @@
        </widget>
       </item>
       <item>
-       <layout class="QVBoxLayout" name="verticalLayout_3">
+       <layout class="QVBoxLayout" name="verticalLayout_3" stretch="0,0,0">
         <item>
          <widget class="QScrollArea" name="scrollArea">
           <property name="widgetResizable">
@@ -79,10 +79,10 @@
              <x>0</x>
              <y>0</y>
              <width>341</width>
-             <height>775</height>
+             <height>718</height>
             </rect>
            </property>
-           <layout class="QVBoxLayout" name="verticalLayout">
+           <layout class="QVBoxLayout" name="verticalLayout" stretch="1,1,1">
             <item>
              <widget class="QGroupBox" name="objectSettings">
               <property name="minimumSize">
@@ -95,11 +95,11 @@
                <string>Objects</string>
               </property>
               <layout class="QFormLayout" name="formLayout">
-               <item row="0" column="0">
+               <item row="2" column="0">
                 <widget class="QSpinBox" name="conderCountBox">
                  <property name="minimumSize">
                   <size>
-                   <width>60</width>
+                   <width>70</width>
                    <height>25</height>
                   </size>
                  </property>
@@ -115,20 +115,23 @@
                  <property name="frame">
                   <bool>false</bool>
                  </property>
+                 <property name="alignment">
+                  <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                 </property>
                 </widget>
                </item>
-               <item row="0" column="1">
+               <item row="2" column="1">
                 <widget class="QLabel" name="conderCountLabel">
                  <property name="text">
                   <string>Capacitors count</string>
                  </property>
                 </widget>
                </item>
-               <item row="1" column="0">
+               <item row="3" column="0">
                 <widget class="QSpinBox" name="vectorCountBox">
                  <property name="minimumSize">
                   <size>
-                   <width>60</width>
+                   <width>70</width>
                    <height>25</height>
                   </size>
                  </property>
@@ -140,6 +143,9 @@
                  </property>
                  <property name="frame">
                   <bool>false</bool>
+                 </property>
+                 <property name="alignment">
+                  <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
                  </property>
                  <property name="readOnly">
                   <bool>false</bool>
@@ -155,11 +161,47 @@
                  </property>
                 </widget>
                </item>
-               <item row="1" column="1">
+               <item row="3" column="1">
                 <widget class="QLabel" name="vectorCountLabel">
                  <property name="text">
                   <string>Ions count</string>
                  </property>
+                </widget>
+               </item>
+               <item row="0" column="1">
+                <widget class="QLabel" name="label_6">
+                 <property name="text">
+                  <string>Capacitor type</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="0" column="0">
+                <widget class="QComboBox" name="comboBox">
+                 <property name="minimumSize">
+                  <size>
+                   <width>70</width>
+                   <height>0</height>
+                  </size>
+                 </property>
+                 <property name="maximumSize">
+                  <size>
+                   <width>70</width>
+                   <height>16777215</height>
+                  </size>
+                 </property>
+                 <property name="layoutDirection">
+                  <enum>Qt::LeftToRight</enum>
+                 </property>
+                 <item>
+                  <property name="text">
+                   <string>Flat</string>
+                  </property>
+                 </item>
+                 <item>
+                  <property name="text">
+                   <string>&quot;Stair&quot;</string>
+                  </property>
+                 </item>
                 </widget>
                </item>
               </layout>
@@ -167,6 +209,12 @@
             </item>
             <item>
              <widget class="QGroupBox" name="graphicsAreaSettings">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
               <property name="minimumSize">
                <size>
                 <width>0</width>
@@ -177,53 +225,18 @@
                <string>Graphics area settings</string>
               </property>
               <layout class="QFormLayout" name="formLayout_3">
-               <item row="0" column="0">
+               <item row="1" column="0">
                 <widget class="QSpinBox" name="offsetBox">
                  <property name="minimumSize">
                   <size>
-                   <width>60</width>
+                   <width>70</width>
                    <height>25</height>
                   </size>
                  </property>
-                 <property name="layoutDirection">
-                  <enum>Qt::RightToLeft</enum>
-                 </property>
-                 <property name="autoFillBackground">
-                  <bool>true</bool>
-                 </property>
-                 <property name="wrapping">
-                  <bool>true</bool>
-                 </property>
-                 <property name="frame">
-                  <bool>false</bool>
-                 </property>
-                 <property name="readOnly">
-                  <bool>false</bool>
-                 </property>
-                 <property name="buttonSymbols">
-                  <enum>QAbstractSpinBox::UpDownArrows</enum>
-                 </property>
-                 <property name="accelerated">
-                  <bool>false</bool>
-                 </property>
-                 <property name="showGroupSeparator" stdset="0">
-                  <bool>false</bool>
-                 </property>
-                </widget>
-               </item>
-               <item row="0" column="1">
-                <widget class="QLabel" name="label_4">
-                 <property name="text">
-                  <string>Offset between capacitors</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="1" column="0">
-                <widget class="QSpinBox" name="topOffsetBox">
-                 <property name="minimumSize">
+                 <property name="maximumSize">
                   <size>
-                   <width>60</width>
-                   <height>25</height>
+                   <width>70</width>
+                   <height>16777215</height>
                   </size>
                  </property>
                  <property name="layoutDirection">
@@ -237,6 +250,9 @@
                  </property>
                  <property name="frame">
                   <bool>false</bool>
+                 </property>
+                 <property name="alignment">
+                  <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
                  </property>
                  <property name="readOnly">
                   <bool>false</bool>
@@ -253,9 +269,86 @@
                 </widget>
                </item>
                <item row="1" column="1">
+                <widget class="QLabel" name="label_4">
+                 <property name="text">
+                  <string>Offset between capacitors</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="2" column="0">
+                <widget class="QSpinBox" name="topOffsetBox">
+                 <property name="minimumSize">
+                  <size>
+                   <width>70</width>
+                   <height>25</height>
+                  </size>
+                 </property>
+                 <property name="maximumSize">
+                  <size>
+                   <width>70</width>
+                   <height>16777215</height>
+                  </size>
+                 </property>
+                 <property name="layoutDirection">
+                  <enum>Qt::RightToLeft</enum>
+                 </property>
+                 <property name="autoFillBackground">
+                  <bool>true</bool>
+                 </property>
+                 <property name="wrapping">
+                  <bool>true</bool>
+                 </property>
+                 <property name="frame">
+                  <bool>false</bool>
+                 </property>
+                 <property name="alignment">
+                  <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                 </property>
+                 <property name="readOnly">
+                  <bool>false</bool>
+                 </property>
+                 <property name="buttonSymbols">
+                  <enum>QAbstractSpinBox::UpDownArrows</enum>
+                 </property>
+                 <property name="accelerated">
+                  <bool>false</bool>
+                 </property>
+                 <property name="showGroupSeparator" stdset="0">
+                  <bool>false</bool>
+                 </property>
+                </widget>
+               </item>
+               <item row="2" column="1">
                 <widget class="QLabel" name="label_5">
                  <property name="text">
                   <string>Ion-area size (in percents)</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="0" column="0">
+                <widget class="QComboBox" name="comboBox_2">
+                 <property name="minimumSize">
+                  <size>
+                   <width>70</width>
+                   <height>0</height>
+                  </size>
+                 </property>
+                 <item>
+                  <property name="text">
+                   <string>Layer</string>
+                  </property>
+                 </item>
+                 <item>
+                  <property name="text">
+                   <string>Wide</string>
+                  </property>
+                 </item>
+                </widget>
+               </item>
+               <item row="0" column="1">
+                <widget class="QLabel" name="label_7">
+                 <property name="text">
+                  <string>Capacitors position</string>
                  </property>
                 </widget>
                </item>
@@ -264,6 +357,12 @@
             </item>
             <item>
              <widget class="QGroupBox" name="capacitorSettings">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
               <property name="minimumSize">
                <size>
                 <width>0</width>
@@ -278,8 +377,14 @@
                 <widget class="QSpinBox" name="conderHeightBox">
                  <property name="minimumSize">
                   <size>
-                   <width>60</width>
+                   <width>70</width>
                    <height>25</height>
+                  </size>
+                 </property>
+                 <property name="maximumSize">
+                  <size>
+                   <width>70</width>
+                   <height>16777215</height>
                   </size>
                  </property>
                  <property name="layoutDirection">
@@ -293,6 +398,9 @@
                  </property>
                  <property name="frame">
                   <bool>false</bool>
+                 </property>
+                 <property name="alignment">
+                  <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
                  </property>
                  <property name="readOnly">
                   <bool>false</bool>
@@ -319,8 +427,14 @@
                 <widget class="QSpinBox" name="conderWidthBox">
                  <property name="minimumSize">
                   <size>
-                   <width>60</width>
+                   <width>70</width>
                    <height>25</height>
+                  </size>
+                 </property>
+                 <property name="maximumSize">
+                  <size>
+                   <width>70</width>
+                   <height>16777215</height>
                   </size>
                  </property>
                  <property name="layoutDirection">
@@ -334,6 +448,9 @@
                  </property>
                  <property name="frame">
                   <bool>false</bool>
+                 </property>
+                 <property name="alignment">
+                  <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
                  </property>
                  <property name="readOnly">
                   <bool>false</bool>
@@ -360,8 +477,14 @@
                 <widget class="QSpinBox" name="conderDeltaBox">
                  <property name="minimumSize">
                   <size>
-                   <width>60</width>
+                   <width>70</width>
                    <height>25</height>
+                  </size>
+                 </property>
+                 <property name="maximumSize">
+                  <size>
+                   <width>70</width>
+                   <height>16777215</height>
                   </size>
                  </property>
                  <property name="layoutDirection">
@@ -375,6 +498,9 @@
                  </property>
                  <property name="frame">
                   <bool>false</bool>
+                 </property>
+                 <property name="alignment">
+                  <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
                  </property>
                  <property name="readOnly">
                   <bool>false</bool>
@@ -402,6 +528,28 @@
             </item>
            </layout>
           </widget>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLCDNumber" name="lcdNumber">
+          <property name="minimumSize">
+           <size>
+            <width>0</width>
+            <height>50</height>
+           </size>
+          </property>
+          <property name="smallDecimalPoint">
+           <bool>false</bool>
+          </property>
+          <property name="digitCount">
+           <number>10</number>
+          </property>
+          <property name="segmentStyle">
+           <enum>QLCDNumber::Flat</enum>
+          </property>
+          <property name="value" stdset="0">
+           <double>28.000670000000000</double>
+          </property>
          </widget>
         </item>
         <item>
