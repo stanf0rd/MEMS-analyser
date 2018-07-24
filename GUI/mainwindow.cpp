@@ -39,11 +39,11 @@ void MainWindow::on_pushButton_clicked() {
 //    QPixmap *map = ui->MapLabel->pixmap();
     // update();
     // cout << "ama here" << endl;
-    // QMainWindow::resizeEvent(event);
-    // int w = ui->MapLabel->width();
-    // int h = ui->MapLabel->height();
-    // cout << "maplabel width = " << w << endl;
-    // cout << "maplabel height = " << h << endl << endl;
+    QMainWindow::resizeEvent(event);
+    int w = this->width();
+    int h = this->height();
+    cout << "maplabel width = " << w << endl;
+    cout << "maplabel height = " << h << endl << endl;
 
 
     // w = this->width() - ;
