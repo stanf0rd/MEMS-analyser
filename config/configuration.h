@@ -1,15 +1,21 @@
 /* by stanford */
+#pragma once
 
-#include "conder.h"
 #include "config.h"
+#include "conder.h"
+#include "mainwindow.h"
 
 class Configuration {
 public:
     static Configuration& Instance();
-    void Update();
+    void Update(MainWindow const &window);
     const ConderSizes& getConderSizes() const;
-    const int& getOffset() const;
-    const int& getTopOffset() const;
+    int getOffset() const;
+    int getTopOffset() const;
+    int getAskedConderCount() const;
+    int getVectorCount() const;
+
+    // void ReadFromUI();
 private:
     ConderSizes conderSizes;
     int offset;

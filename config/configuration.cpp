@@ -1,14 +1,16 @@
 /* by stanford */
-
 #include "configuration.h"
+
 
 Configuration::Configuration()
 : conderSizes(defaultConderSizes)
 , offset(defaultOffset)
 , topOffset(defaultTopOffset)
+, askedConderCount(defaultConderCount)
+, vectorCount(defaultVectorCount)
 {
     ReadConfigFile();
-    Update();  // set defaults to mainwindow boxes
+    // TODO: set defaults to mainwindow boxes
 }
 
 void Configuration::ReadConfigFile() {
@@ -20,18 +22,29 @@ Configuration& Configuration::Instance() {
     return c;
 }
 
-void Configuration::Update() {
-    // TODO: /* call mainwindow's method getInputValues or like that */
+void Configuration::Update(MainWindow const &window) {
+    window.GetChosenValues(
+        conderSizes, offset, topOffset,
+        askedConderCount, vectorCount
+    );
 }
 
-const int& Configuration::getOffset() const {
+int Configuration::getOffset() const {
     return offset;
 }
 
-const int& Configuration::getTopOffset() const {
+int Configuration::getTopOffset() const {
     return topOffset;
 }
 
 const ConderSizes& Configuration::getConderSizes() const {
     return conderSizes;
+}
+
+int Configuration::getAskedConderCount() const {
+    return askedConderCount;
+}
+
+int Configuration::getVectorCount() const {
+    return vectorCount;
 }

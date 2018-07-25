@@ -44,3 +44,11 @@
     // defaultVectorX = ConderMapSize/2
 /*
 \*****************************************************/
+
+
+/************** DEFAULT COUNTS SETTINGS **************\
+*/
+    const int defaultConderCount = 20;
+    const int defaultVectorCount = 20;
+/*
+\*****************************************************/

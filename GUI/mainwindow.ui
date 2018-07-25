@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1856</width>
-    <height>840</height>
+    <width>1124</width>
+    <height>655</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -100,7 +100,7 @@
              <x>0</x>
              <y>0</y>
              <width>279</width>
-             <height>718</height>
+             <height>533</height>
             </rect>
            </property>
            <layout class="QVBoxLayout" name="verticalLayout" stretch="1,1,1">
@@ -197,7 +197,7 @@
                 </widget>
                </item>
                <item row="0" column="0">
-                <widget class="QComboBox" name="comboBox">
+                <widget class="QComboBox" name="conderTypeBox">
                  <property name="minimumSize">
                   <size>
                    <width>70</width>

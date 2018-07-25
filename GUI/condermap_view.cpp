@@ -11,7 +11,7 @@ ConderMapView::ConderMapView(QWidget *parent)
 , map(nullptr)
 {
     this->setScene(scene);
-    this->scale(1, -1);         // flip on 180 degrees
+    this->scale(1, -1);         // rotate on 180 degrees
     scene->addItem(conders);
     scene->addItem(tracks);
     srand(time(nullptr));       // for conder generation
@@ -21,8 +21,7 @@ void ConderMapView::generateScene() {
     auto mapSizes = ConderMapSizes(this->width(), this->height());
     auto &config = Configuration::Instance();
     map = new ConderMap(mapSizes, config.getConderSizes());
-    // TODO: send conderCount (through config)
-    map->GenConders(1000);
+    map->GenConders(config.getAskedConderCount());
 }
 
 void ConderMapView::drawConder(Conder conder) {
@@ -46,7 +45,6 @@ void ConderMapView::drawConder(Conder conder) {
 void ConderMapView::drawScene() {
     ClearGroup(conders);
     scene->setSceneRect(0, 0, this->width(), this->height());
-    // TODO: draw all conders here
     auto const &conderVector = map->getConders();
     // std::cout << conders.size() << std::endl;
     for (auto conder : conderVector) {

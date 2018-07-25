@@ -16,7 +16,7 @@ QMainWindow(parent),
 ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-
+    SetDefaultValues();
 #ifdef _WIN32
     // fixing windows-style button bug
     ui->pushButton->setStyleSheet("margin: -1px;");
@@ -28,12 +28,40 @@ MainWindow::~MainWindow() {
     delete ui;
 }
 
+void MainWindow::GetChosenValues(
+    ConderSizes &conderSizes,
+    int &offset, int &topOffset,
+    int &conderCount, int &vectorCount
+) const {
+    conderSizes.height = ui->conderHeightBox->value();
+    conderSizes.width = ui->conderWidthBox->value();
+    conderSizes.delta = ui->conderDeltaBox->value();
+    offset = ui->offsetBox->value();
+    topOffset = ui->topOffsetBox->value();
+    conderCount = ui->conderCountBox->value();
+    vectorCount = ui->vectorCountBox->value();
+}
+
 void MainWindow::on_pushButton_clicked() {
-    Configuration::Instance().Update();
+    Configuration::Instance().Update(*this);
     this->ui->conderMapView->generateScene();
     this->ui->conderMapView->drawScene();
-};
+}
 
+void MainWindow::SetDefaultValues() {
+    // TODO: set capacitors position
+    // TODO: set capacitors type
+    auto const &config = Configuration::Instance();
+    auto &gui = *(this->ui);
+    gui.conderCountBox->setValue(config.getAskedConderCount());
+    gui.vectorCountBox->setValue(config.getVectorCount());
+    gui.topOffsetBox->setValue(config.getTopOffset());
+    gui.offsetBox->setValue(config.getOffset());
+    auto const &conderSizes = config.getConderSizes();
+    gui.conderWidthBox->setValue(conderSizes.width);
+    gui.conderHeightBox->setValue(conderSizes.height);
+    gui.conderDeltaBox->setValue(conderSizes.delta);
+}
 
 /* void MainWindow::resizeEvent(QResizeEvent* event) {
 //    QPixmap *map = ui->MapLabel->pixmap();
