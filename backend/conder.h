@@ -1,7 +1,12 @@
 #pragma once
 
+#include <utility>
 #include "matrix.hpp"
+#include "vector.h"
+
 using simple_matrix::Dot;
+typedef std::pair<Vector, Vector> VectorPair;
+
 
 struct ConderSizes {
     int width;
@@ -12,13 +17,16 @@ struct ConderSizes {
 
 class Conder {
 public:
-    Conder(Dot _coord, ConderSizes *_sizes);
+    Conder(const Dot coord, const ConderSizes &sizes);
     // ~Conder();
-    Dot getCoord() const;
-    ConderSizes getSizes() const;
-    void setSizes(ConderSizes);
+    const Dot& getCoord() const;
+    const ConderSizes& getSizes() const;
+    void setVectorRange(Vector &left, Vector &right);
+    const VectorPair& getVectorRange() const;
 private:
-    Dot coord;
-    ConderSizes *sizes;
+    // range of vectors, which crosses conder
+    const VectorPair *vectorRange;
+    const Dot coord;  // left bottom dot
+    const ConderSizes &sizes;
     void CountSideAngles();
 };

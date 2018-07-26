@@ -20,7 +20,7 @@ ConderMap::ConderMap(const ConderMapSizes mSizes, const ConderSizes cSizes)
 , conderCount(0) {
     int matrixWidth = mapSizes.width - 2*mapSizes.offset - conderSizes.width;
     int matrixHeight = (mapSizes.height - mapSizes.offset)
-                     / 100 * (100 - mapSizes.topOffset);  // 100 means 100%
+                     / 100 * (100 - mapSizes.topOffset);  // "100" means 100%
     map = new Matrix<bool>(matrixWidth, matrixHeight, true);
 }
 
@@ -39,8 +39,8 @@ int ConderMap::GenConders(const int count) {
                     y + conderSizes.height + offset + 1);
             matrix.fill(begin, end, 1, true);
 
-            Dot realBegin(Dot(x, y) + Dot(mapSizes.offset, mapSizes.offset));
-            conders.push_back(Conder(realBegin, &conderSizes));
+            const Dot realBegin(Dot(x, y) + Dot(mapSizes.offset, mapSizes.offset));
+            conders.push_back(Conder(realBegin, conderSizes));
 
             std::cout << "For conder #" << i << " there are " << tec << " cats" << std::endl;
             tec = 0;
@@ -54,11 +54,10 @@ int ConderMap::GenConders(const int count) {
     }
     conderCount = i;
     std::cout << "ConderCount = " << i
-         << "; vector size = " << conders.size() << std::endl;
+              << "; vector size = " << conders.size() << std::endl;
     return i;
 }
 
 const vector<Conder>& ConderMap::getConders() const {
     return conders;
 }
-

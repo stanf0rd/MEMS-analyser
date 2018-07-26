@@ -23,8 +23,8 @@ public:
     int GenConders(const int count);
     const vector<Conder>& getConders() const;
 private:
-    ConderSizes conderSizes;
-    ConderMapSizes mapSizes;
+    const ConderSizes conderSizes;
+    const ConderMapSizes mapSizes;
 
     Matrix<bool> *map;
 
