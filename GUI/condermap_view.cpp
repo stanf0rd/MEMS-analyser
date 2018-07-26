@@ -20,6 +20,7 @@ ConderMapView::ConderMapView(QWidget *parent)
 void ConderMapView::generateScene() {
     auto mapSizes = ConderMapSizes(this->width(), this->height());
     auto &config = Configuration::Instance();
+    if (map) delete map;
     map = new ConderMap(mapSizes, config.getConderSizes());
     map->GenConders(config.getAskedConderCount());
 }

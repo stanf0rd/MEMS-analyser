@@ -5,6 +5,7 @@
 #include "conder_map.h"
 #include "configuration.h"
 
+
 ConderMapSizes::ConderMapSizes(const int _w, const int _h)
 : width(_w)
 , height(_h) {
@@ -18,7 +19,8 @@ ConderMap::ConderMap(const ConderMapSizes mSizes, const ConderSizes cSizes)
 , mapSizes(mSizes)
 , conderCount(0) {
     int matrixWidth = mapSizes.width - 2*mapSizes.offset - conderSizes.width;
-    int matrixHeight = 2 * (mapSizes.height - mapSizes.offset) / 3;
+    int matrixHeight = (mapSizes.height - mapSizes.offset)
+                     / 100 * (100 - mapSizes.topOffset);  // 100 means 100%
     map = new Matrix<bool>(matrixWidth, matrixHeight, true);
 }
 
