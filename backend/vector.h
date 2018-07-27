@@ -8,9 +8,11 @@ class Vector {
 public:
     Vector(Dot begin, Dot end);
     const float& getAngle() const;
+    const Dot& getBegin() const;
+    const Dot& getEnd() const;
 private:
-    Dot beginDot;
-    Dot endDot;
+    Dot begin;
+    Dot end;
     float angle;
     // angle between vector and vertical line
     float CountAngle();
