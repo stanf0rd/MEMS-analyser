@@ -6,6 +6,7 @@
 #include <QGraphicsItemGroup>
 
 #include "conder.h"
+#include "vector.h"
 #include "conder_map.h"
 
 class ConderMapView : public QGraphicsView {
@@ -14,7 +15,8 @@ Q_OBJECT
 public:
     explicit ConderMapView(QWidget *parent = 0);
     // ~ConderMapView();
-    void drawConder(Conder conder);
+    void drawConder(const Conder &conder);
+    void drawVector(const Vector &vector);
     void generateScene();
     void drawScene();
 

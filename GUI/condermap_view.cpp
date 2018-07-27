@@ -18,39 +18,59 @@ ConderMapView::ConderMapView(QWidget *parent)
 }
 
 void ConderMapView::generateScene() {
-    auto mapSizes = ConderMapSizes(this->width(), this->height());
+    const auto mapSizes = ConderMapSizes(this->width(), this->height());
     auto &config = Configuration::Instance();
     if (map) delete map;
     map = new ConderMap(mapSizes, config.getConderSizes());
     map->GenConders(config.getAskedConderCount());
 }
 
-void ConderMapView::drawConder(Conder conder) {
-    auto coord = conder.getCoord();
-    auto sizes = conder.getSizes();
+void ConderMapView::drawConder(const Conder &conder) {
+    const auto coord = conder.getCoord();
+    const auto sizes = conder.getSizes();
     int plateHeight = (sizes.height - sizes.delta)/2;
-    QGraphicsRectItem* conderBottom = new QGraphicsRectItem(
+    auto conderBottom = new QGraphicsRectItem(
         coord.x, coord.y,
         sizes.width, plateHeight
     );
-    QGraphicsRectItem* conderTop = new QGraphicsRectItem(
+    auto conderTop = new QGraphicsRectItem(
         coord.x, coord.y + sizes.delta + plateHeight,
         sizes.width, plateHeight
     );
-    conderBottom->setBrush(QBrush(Qt::black));
-    conderTop->setBrush(QBrush(Qt::black));
-    conders->addToGroup(conderBottom);
+    QBrush brush(Qt::darkGray);
+    QPen pen(Qt::darkGray);
+    conderTop->setPen(pen);       // uncomment these two lines
+    conderBottom->setPen(pen);    // to remove black border around conder
+    conderTop->setBrush(brush);
+    conderBottom->setBrush(brush);
     conders->addToGroup(conderTop);
+    conders->addToGroup(conderBottom);
+}
+
+void ConderMapView::drawVector(const Vector &vector) {
+    const Dot begin = vector.getBegin();
+    const Dot end = vector.getEnd();
+    auto track = new QGraphicsLineItem(begin.x, begin.y, end.x, end.y);
+    // track->setZValue(-100);
+    QPen pen(Qt::black);
+    tracks->setZValue(-1);
+    pen.setWidthF(1);
+    track->setPen(pen);
+    tracks->addToGroup(track);
 }
 
 void ConderMapView::drawScene() {
     ClearGroup(conders);
+    ClearGroup(tracks);
     scene->setSceneRect(0, 0, this->width(), this->height());
     auto const &conderVector = map->getConders();
     // std::cout << conders.size() << std::endl;
     for (auto conder : conderVector) {
         drawConder(conder);
+        Vector *vector = new Vector(conder.getCoord(), Dot(this->width()/2, this->height()));
+        drawVector(*vector);
     }
+
     fitInView(scene->sceneRect(), Qt::KeepAspectRatio);
 }
 
