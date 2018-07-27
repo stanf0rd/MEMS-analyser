@@ -26,7 +26,7 @@ public:
 private:
     // range of vectors, which crosses conder
     const VectorPair *vectorRange;
-    const Dot coord;  // left bottom dot
+    Dot coord;  // left bottom dot
     const ConderSizes &sizes;
     void CountSideAngles();
 };

@@ -20,7 +20,7 @@ class ConderMap {
 public:
     ConderMap(const ConderMapSizes, const ConderSizes);
     // ~ConderMap();
-    int GenConders(const int count);
+    int GenConders(const int &count);
     const vector<Conder>& getConders() const;
 private:
     const ConderSizes conderSizes;

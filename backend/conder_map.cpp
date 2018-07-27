@@ -24,7 +24,7 @@ ConderMap::ConderMap(const ConderMapSizes mSizes, const ConderSizes cSizes)
     map = new Matrix<bool>(matrixWidth, matrixHeight, true);
 }
 
-int ConderMap::GenConders(const int count) {
+int ConderMap::GenConders(const int &count) {
     auto const &config = Configuration::Instance();
     auto &matrix = *map;
     int x = 0, y = 0, i = 0, tec = 0;
@@ -45,17 +45,14 @@ int ConderMap::GenConders(const int count) {
             std::cout << "For conder #" << i << " there are " << tec << " cats" << std::endl;
             tec = 0;
         } else if (tec++ == 100000) {
-            std::cout << "Уместилось " << i << " конденсаторов." << std::endl;
+            std::cout << i << " conders found their places." << std::endl;
             break;
         } else {
             tec++;
             i--;
         }
     }
-    conderCount = i;
-    std::cout << "ConderCount = " << i
-              << "; vector size = " << conders.size() << std::endl;
-    return i;
+    return conderCount = i;
 }
 
 const vector<Conder>& ConderMap::getConders() const {
