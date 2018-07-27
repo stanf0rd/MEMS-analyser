@@ -1,4 +1,3 @@
-#include <utility>
 #include "conder.h"
 
 ConderSizes::ConderSizes(int w, int h, int d)
@@ -9,6 +8,7 @@ width(w), height(h), delta(d) {}
 Conder::Conder(const Dot _coord, const ConderSizes &_sizes)
 :
 coord(_coord), sizes(_sizes), vectorRange(nullptr) {
+    crossings.resize(3);  // max crossings per conder
     // CountSideAngles();
 };
 

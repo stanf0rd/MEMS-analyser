@@ -25,7 +25,8 @@ Configuration& Configuration::Instance() {
 void Configuration::Update(MainWindow const &window) {
     window.GetChosenValues(
         conderSizes, offset, topOffset,
-        askedConderCount, vectorCount
+        askedConderCount, vectorCount,
+        graphicsAreaWidth, graphicsAreaHeight
     );
 }
 

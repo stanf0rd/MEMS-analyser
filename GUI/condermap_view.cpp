@@ -22,7 +22,11 @@ void ConderMapView::generateScene() {
     auto &config = Configuration::Instance();
     if (map) delete map;
     map = new ConderMap(mapSizes, config.getConderSizes());
-    map->GenConders(config.getAskedConderCount());
+    auto generatedConders = new vector<Conder>;
+    map->GenConders(config.getAskedConderCount(), *generatedConders);
+    map->CountRanges(Dot(this->width()/2, this->height()), *generatedConders);  // TODO: remove hardcode
+    map->VectorToMap(*generatedConders);
+    delete generatedConders;
 }
 
 void ConderMapView::drawConder(const Conder &conder) {
@@ -53,8 +57,7 @@ void ConderMapView::drawVector(const Vector &vector) {
     auto track = new QGraphicsLineItem(begin.x, begin.y, end.x, end.y);
     // track->setZValue(-100);
     QPen pen(Qt::black);
-    tracks->setZValue(-1);
-    pen.setWidthF(1);
+    pen.setWidthF(2);
     track->setPen(pen);
     tracks->addToGroup(track);
 }
@@ -63,12 +66,16 @@ void ConderMapView::drawScene() {
     ClearGroup(conders);
     ClearGroup(tracks);
     scene->setSceneRect(0, 0, this->width(), this->height());
-    auto const &conderVector = map->getConders();
-    // std::cout << conders.size() << std::endl;
-    for (auto conder : conderVector) {
+    auto const &conders = map->getConders();
+    tracks->setZValue(-1);  // drawing tracks behind conders
+
+    for (const auto &conderPair : conders) {
+        const auto conder = conderPair.second;
         drawConder(conder);
-        Vector *vector = new Vector(conder.getCoord(), Dot(this->width()/2, this->height()));
-        drawVector(*vector);
+        // drawVector(conder.getVectorRange().first);
+        // drawVector(conder.getVectorRange().second);
+        // auto *vector = new Vector(conder.getCoord(), Dot(this->width()/2, this->height()));
+        // drawVector(*vector);
     }
 
     fitInView(scene->sceneRect(), Qt::KeepAspectRatio);

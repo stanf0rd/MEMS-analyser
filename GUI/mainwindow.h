@@ -19,7 +19,8 @@ public:
     void GetChosenValues(
         ConderSizes &conderSizes,
         int &offset, int &topOffset,
-        int &conderCount, int &vectorCount
+        int &conderCount, int &vectorCount,
+        int &graphicsAreaWidth, int &graphicsAreaHeight
     ) const;
 
 private slots:

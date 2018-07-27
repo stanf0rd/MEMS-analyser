@@ -16,10 +16,13 @@ Vector::Vector(Dot begin, Dot end)
 
 float Vector::CountAngle() {
     int opposCatet = abs(begin.x - end.x);
-    int contCatet = begin.y - end.y;
-    std::cout << "opposCatet = " << opposCatet << "; contCatet " << contCatet << std::endl;
+    int contCatet = abs(begin.y - end.y);
     float angle = atan((float)opposCatet/(float)contCatet);
     angle *= 180/M_PI;
+    std::cout << "opposCatet = " << opposCatet
+              << "; contCatet = " << contCatet
+              << "; angle = " << angle
+              << std::endl;
     return angle;
 }
 
@@ -29,4 +32,8 @@ const Dot& Vector::getBegin() const {
 
 const Dot& Vector::getEnd() const {
     return end;
+}
+
+const float& Vector::getAngle() const {
+    return angle;
 }

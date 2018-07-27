@@ -31,7 +31,8 @@ MainWindow::~MainWindow() {
 void MainWindow::GetChosenValues(
     ConderSizes &conderSizes,
     int &offset, int &topOffset,
-    int &conderCount, int &vectorCount
+    int &conderCount, int &vectorCount,
+    int &graphicsAreaWidth, int &graphicsAreaHeight
 ) const {
     conderSizes.height = ui->conderHeightBox->value();
     conderSizes.width = ui->conderWidthBox->value();
@@ -40,6 +41,8 @@ void MainWindow::GetChosenValues(
     topOffset = ui->topOffsetBox->value();
     conderCount = ui->conderCountBox->value();
     vectorCount = ui->vectorCountBox->value();
+    graphicsAreaWidth = ui->conderMapView->width();
+    graphicsAreaHeight = ui->conderMapView->height();
 }
 
 void MainWindow::on_pushButton_clicked() {

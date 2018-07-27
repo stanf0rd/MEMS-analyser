@@ -1,5 +1,6 @@
 #pragma once
 
+#include <vector>
 #include <utility>
 #include "matrix.hpp"
 #include "vector.h"
@@ -26,6 +27,7 @@ public:
 private:
     // range of vectors, which crosses conder
     const VectorPair *vectorRange;
+    std::vector<Vector> crossings;
     Dot coord;  // left bottom dot
     const ConderSizes &sizes;
     void CountSideAngles();

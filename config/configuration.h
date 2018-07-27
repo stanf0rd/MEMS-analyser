@@ -18,10 +18,13 @@ public:
     // void ReadFromUI();
 private:
     ConderSizes conderSizes;
+
     int offset;
     int topOffset;
     int askedConderCount;
     int vectorCount;
+    int graphicsAreaWidth = 0;
+    int graphicsAreaHeight = 0;
 
     Configuration();
     ~Configuration() = default;

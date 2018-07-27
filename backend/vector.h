@@ -6,6 +6,7 @@ using simple_matrix::Dot;
 
 class Vector {
 public:
+    Vector() = default;
     Vector(Dot begin, Dot end);
     const float& getAngle() const;
     const Dot& getBegin() const;
