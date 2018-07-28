@@ -15,10 +15,10 @@ Q_OBJECT
 public:
     explicit ConderMapView(QWidget *parent = 0);
     // ~ConderMapView();
-    void drawConder(const Conder &conder);
-    void drawVector(const Vector &vector);
-    void generateScene();
-    void drawScene();
+    void DrawConder(const Conder &conder);
+    void DrawVector(const Vector &vector);
+    void GenerateScene();
+    void DrawScene();
 
 private:
     QGraphicsScene *scene;

@@ -52,10 +52,10 @@ int ConderMap::GenConders(const int &count,
             const Dot realBegin(Dot(x, y) + Dot(mapSizes.offset, mapSizes.offset));
             generatedConders.push_back(Conder(realBegin, conderSizes));
 
-            std::cout << "For conder #" << i << " there are " << tec << " cats" << std::endl;
+            // std::cout << "For conder #" << i << " there are " << tec << " cats" << std::endl;
             tec = 0;
         } else if (tec++ == 100000) {
-            std::cout << i << " conders found their places." << std::endl;
+            // std::cout << i << " conders found their places." << std::endl;
             break;
         } else {
             tec++;

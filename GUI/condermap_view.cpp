@@ -17,7 +17,7 @@ ConderMapView::ConderMapView(QWidget *parent)
     srand(time(nullptr));       // for conder generation
 }
 
-void ConderMapView::generateScene() {
+void ConderMapView::GenerateScene() {
     const auto mapSizes = ConderMapSizes(this->width(), this->height());
     auto &config = Configuration::Instance();
     if (map) delete map;
@@ -29,7 +29,7 @@ void ConderMapView::generateScene() {
     delete generatedConders;
 }
 
-void ConderMapView::drawConder(const Conder &conder) {
+void ConderMapView::DrawConder(const Conder &conder) {
     const auto coord = conder.getCoord();
     const auto sizes = conder.getSizes();
     int plateHeight = (sizes.height - sizes.delta)/2;
@@ -51,7 +51,7 @@ void ConderMapView::drawConder(const Conder &conder) {
     conders->addToGroup(conderBottom);
 }
 
-void ConderMapView::drawVector(const Vector &vector) {
+void ConderMapView::DrawVector(const Vector &vector) {
     const Dot begin = vector.getBegin();
     const Dot end = vector.getEnd();
     auto track = new QGraphicsLineItem(begin.x, begin.y, end.x, end.y);
@@ -62,18 +62,18 @@ void ConderMapView::drawVector(const Vector &vector) {
     tracks->addToGroup(track);
 }
 
-void ConderMapView::drawScene() {
+void ConderMapView::DrawScene() {
     ClearGroup(conders);
     ClearGroup(tracks);
     scene->setSceneRect(0, 0, this->width(), this->height());
     auto const &conders = map->getConders();
-    tracks->setZValue(-1);  // drawing tracks behind conders
+    tracks->setZValue(-1);  // Drawing tracks behind conders
 
     for (const auto &conderPair : conders) {
         const auto conder = conderPair.second;
-        drawConder(conder);
-        drawVector(conder.getVectorRange().first);
-        drawVector(conder.getVectorRange().second);
+        DrawConder(conder);
+        DrawVector(conder.getVectorRange().first);
+        DrawVector(conder.getVectorRange().second);
     }
 
     fitInView(scene->sceneRect(), Qt::KeepAspectRatio);

@@ -47,8 +47,8 @@ void MainWindow::GetChosenValues(
 
 void MainWindow::on_pushButton_clicked() {
     Configuration::Instance().Update(*this);
-    this->ui->conderMapView->generateScene();
-    this->ui->conderMapView->drawScene();
+    this->ui->conderMapView->GenerateScene();
+    this->ui->conderMapView->DrawScene();
 }
 
 void MainWindow::SetDefaultValues() {
@@ -73,8 +73,8 @@ void MainWindow::SetDefaultValues() {
     QMainWindow::resizeEvent(event);
     int w = this->width();
     int h = this->height();
-    cout << "maplabel width = " << w << endl;
-    cout << "maplabel height = " << h << endl << endl;
+    // cout << "maplabel width = " << w << endl;
+    // cout << "maplabel height = " << h << endl << endl;
 
 
     // w = this->width() - ;
