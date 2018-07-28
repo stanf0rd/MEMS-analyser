@@ -72,10 +72,8 @@ void ConderMapView::drawScene() {
     for (const auto &conderPair : conders) {
         const auto conder = conderPair.second;
         drawConder(conder);
-        // drawVector(conder.getVectorRange().first);
-        // drawVector(conder.getVectorRange().second);
-        // auto *vector = new Vector(conder.getCoord(), Dot(this->width()/2, this->height()));
-        // drawVector(*vector);
+        drawVector(conder.getVectorRange().first);
+        drawVector(conder.getVectorRange().second);
     }
 
     fitInView(scene->sceneRect(), Qt::KeepAspectRatio);

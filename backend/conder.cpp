@@ -20,7 +20,7 @@ const ConderSizes& Conder::getSizes() const {
     return sizes;
 }
 
-void Conder::setVectorRange(Vector &left, Vector &right) {
+void Conder::setVectorRange(Vector left, Vector right) {
     if (vectorRange) delete vectorRange;
     vectorRange = new VectorPair(left, right);
 }

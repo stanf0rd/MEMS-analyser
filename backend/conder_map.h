@@ -28,7 +28,7 @@ public:
     void VectorToMap(const std::vector<Conder>&);
     const Dot& getVectorsBegin() const;
     void CountRanges(const Dot &tracksBegin,
-                     const vector<Conder> &generatedConders);
+                     vector<Conder> &generatedConders);
     const std::map<float, Conder>& getConders() const;
 private:
     const ConderSizes conderSizes;

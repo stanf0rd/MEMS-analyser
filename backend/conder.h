@@ -22,7 +22,7 @@ public:
     // ~Conder();
     const Dot& getCoord() const;
     const ConderSizes& getSizes() const;
-    void setVectorRange(Vector &left, Vector &right);
+    void setVectorRange(Vector left, Vector right);
     const VectorPair& getVectorRange() const;
 private:
     // range of vectors, which crosses conder

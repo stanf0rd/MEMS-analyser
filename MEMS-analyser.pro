@@ -25,7 +25,7 @@ INCLUDEPATH += \
 
 DESTDIR = $$PWD
 
-#QMAKE_CXXFLAGS += -g
+unix:QMAKE_CXXFLAGS += -g
 
 OBJECTS_DIR = $$PWD/temp/.obj
 MOC_DIR = $$PWD/temp/.moc

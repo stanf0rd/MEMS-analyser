@@ -67,29 +67,31 @@ int ConderMap::GenConders(const int &count,
 
 void ConderMap::CountRanges(
     const Dot &tracksBegin,
-    const vector<Conder> &generatedConders)
+    vector<Conder> &generatedConders)
 {
     const auto &conderSizes = Configuration::Instance().getConderSizes();
-    for (auto conder : generatedConders) {
+    for (auto &conder : generatedConders) {
         const auto leftVectorEnd =
             (conder.getCoord().x <= tracksBegin.x) ?
             Dot(conder.getCoord() + Dot(0, conderSizes.height)) :
             Dot(conder.getCoord());
         auto leftVector = Vector(tracksBegin, leftVectorEnd);
-
+        // std::cout << leftVector.getAngle();
         const auto rightVectorEnd =
             (conder.getCoord().x + conderSizes.width <= tracksBegin.x) ?
-            Dot(conder.getCoord() + Dot(0, conderSizes.width)) :
-            Dot(conder.getCoord() + Dot(conderSizes.height, conderSizes.width));
+            Dot(conder.getCoord() + Dot(conderSizes.width, 0)) :
+            Dot(conder.getCoord() + Dot(conderSizes.width, conderSizes.height));
         auto rightVector = Vector(tracksBegin, rightVectorEnd);
 
         conder.setVectorRange(leftVector, rightVector);
+        // std::cout << conder.getVectorRange().first.getAngle() << std::endl;
     }
 }
 
 void ConderMap::VectorToMap(const std::vector<Conder> &generatedConders) {
     for (auto conder : generatedConders) {
-        auto pair = std::make_pair(conder.getVectorRange().first.getAngle(), conder);
+        auto &angle = conder.getVectorRange().first.getAngle();
+        auto pair = std::make_pair(angle, conder);
         conders.emplace(pair);
     }
 }
