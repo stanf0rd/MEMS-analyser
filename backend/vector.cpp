@@ -18,7 +18,7 @@ float Vector::CountAngle() {
     int opposCatet = abs(begin.x - end.x);
     int contCatet = abs(begin.y - end.y);
     angle = atan((float)opposCatet/(float)contCatet);
-    angle *= 180/M_PI;
+    angle *= 180/(float)M_PI;
     std::cout << "opposCatet = " << opposCatet
               << "; contCatet = " << contCatet
               << "; angle = " << angle
