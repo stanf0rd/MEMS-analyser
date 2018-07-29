@@ -30,6 +30,7 @@ public:
     void CountRanges(const Dot &tracksBegin,
                      vector<Conder> &generatedConders);
     const std::map<float, Conder>& getConders() const;
+    const std::vector<Vector>& getVectors() const;
 private:
     const ConderSizes conderSizes;
     const ConderMapSizes mapSizes;

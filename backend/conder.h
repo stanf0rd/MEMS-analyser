@@ -24,10 +24,12 @@ public:
     const ConderSizes& getSizes() const;
     void setVectorRange(Vector left, Vector right);
     const VectorPair& getVectorRange() const;
+    bool addCrossing(const Vector * vector);
+    const std::vector<const Vector *>& getCrossings() const;
 private:
     // range of vectors, which crosses conder
     const VectorPair *vectorRange;
-    std::vector<Vector> crossings;
+    std::vector<const Vector *> crossings;
     Dot coord;  // left bottom dot
     const ConderSizes &sizes;
     void CountSideAngles();

@@ -28,3 +28,13 @@ void Conder::setVectorRange(Vector left, Vector right) {
 const VectorPair& Conder::getVectorRange() const {
     return *vectorRange;
 }
+
+bool Conder::addCrossing(const Vector * vector) {
+    if (crossings.size() == 3) return false;
+    crossings.push_back(vector);
+    return true;
+}
+
+const std::vector<const Vector *>& Conder::getCrossings() const {
+    return crossings;
+}

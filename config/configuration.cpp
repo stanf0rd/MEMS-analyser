@@ -30,11 +30,11 @@ void Configuration::Update(MainWindow const &window) {
     );
 }
 
-int Configuration::getOffset() const {
+const int& Configuration::getOffset() const {
     return offset;
 }
 
-int Configuration::getTopOffset() const {
+const int& Configuration::getTopOffset() const {
     return topOffset;
 }
 
@@ -42,10 +42,18 @@ const ConderSizes& Configuration::getConderSizes() const {
     return conderSizes;
 }
 
-int Configuration::getAskedConderCount() const {
+const int& Configuration::getAskedConderCount() const {
     return askedConderCount;
 }
 
-int Configuration::getVectorCount() const {
+const int& Configuration::getVectorCount() const {
     return vectorCount;
+}
+
+const int& Configuration::getGraphicsAreaWidth() const {
+    return graphicsAreaWidth;
+}
+
+const int& Configuration::getGraphicsAreaHeight() const {
+    return graphicsAreaHeight;
 }

@@ -1,11 +1,13 @@
 #include <cmath>
 #include <cassert>
 #include <iostream>
+#include <random>
 // TODO: is iostream needed here?
 
 #include "conder_map.h"
 #include "configuration.h"
 
+using std::rand;
 
 ConderMapSizes::ConderMapSizes(const int _w, const int _h)
 : width(_w)
@@ -98,12 +100,30 @@ void ConderMap::VectorToMap(const std::vector<Conder> &generatedConders) {
 
 int ConderMap::GenVectors(const int &count) {
     assert(!conders.empty());
-    // for (int i = 0; i != count; i++) {
-        
-    // }
-    return 1;
+    int endDotX = 0, endDotY = 0, tries = 0, i = 0;
+
+    for (i = 0; i != count; i++) {
+        int endDotX = rand() % (mapSizes.width*10) - (mapSizes.width*4.5);
+        auto vector = new Vector(vectorsBegin, Dot(endDotX, endDotY));
+        const auto &angle = vector->getAngle();
+        auto firstConder = conders.lower_bound(angle)->second;
+        if ((firstConder.getVectorRange().second.getAngle() >= angle)  // conder crossed!
+        && (!firstConder.addCrossing(vector))) {  // too much crossings for 1 conder!
+            --i;
+            delete vector;
+            if (tries++ > 10) return i;  // TODO: hardcode! maybe conderCount?
+            continue;
+        }
+        vectors.push_back(*vector);
+    }
+
+    return i;
 }
 
 const std::map<float, Conder>& ConderMap::getConders() const {
     return conders;
+}
+
+const std::vector<Vector>& ConderMap::getVectors() const {
+    return vectors;
 }

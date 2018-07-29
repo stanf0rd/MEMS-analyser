@@ -27,6 +27,7 @@ void ConderMapView::GenerateScene() {
     map->CountRanges(Dot(this->width()/2, this->height()), *generatedConders);  // TODO: remove hardcode
     map->VectorToMap(*generatedConders);
     delete generatedConders;
+    map->GenVectors(config.getVectorCount());
 }
 
 void ConderMapView::DrawConder(const Conder &conder) {
@@ -70,11 +71,16 @@ void ConderMapView::DrawScene() {
     tracks->setZValue(-1);  // Drawing tracks behind conders
 
     for (const auto &conderPair : conders) {
-        const auto conder = conderPair.second;
-        DrawConder(conder);
-        DrawVector(conder.getVectorRange().first);
-        DrawVector(conder.getVectorRange().second);
+        // const auto conder = conderPair.second;
+        DrawConder(conderPair.second);
+        // DrawVector(conder.getVectorRange().first);
+        // DrawVector(conder.getVectorRange().second);
     }
+
+    for (const auto &vector : map->getVectors()) {
+        DrawVector(vector);
+    }
+
 
     fitInView(scene->sceneRect(), Qt::KeepAspectRatio);
 }
