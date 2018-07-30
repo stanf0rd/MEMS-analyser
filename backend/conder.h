@@ -24,7 +24,7 @@ public:
     const ConderSizes& getSizes() const;
     void setVectorRange(Vector left, Vector right);
     const VectorPair& getVectorRange() const;
-    bool addCrossing(const Vector * vector);
+    bool AddCrossing(const Vector * vector);
     const std::vector<const Vector *>& getCrossings() const;
 private:
     // range of vectors, which crosses conder

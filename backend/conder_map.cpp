@@ -1,7 +1,6 @@
 #include <cmath>
 #include <cassert>
 #include <iostream>
-#include <random>
 #include <utility>
 // TODO: is iostream needed here?
 
@@ -12,7 +11,8 @@ using std::rand;
 
 ConderMapSizes::ConderMapSizes(const int _w, const int _h)
 : width(_w)
-, height(_h) {
+, height(_h)
+{
     auto &config = Configuration::Instance();
     offset = config.getOffset();
     topOffset = config.getTopOffset();
@@ -21,14 +21,15 @@ ConderMapSizes::ConderMapSizes(const int _w, const int _h)
 ConderMap::ConderMap(const ConderMapSizes mSizes, const ConderSizes cSizes)
 : conderSizes(cSizes)
 , mapSizes(mSizes)
-, conderCount(0) {
+, conderCount(0)
+{
     int matrixWidth = mapSizes.width - 2*mapSizes.offset - conderSizes.width;
     int matrixHeight = (mapSizes.height - mapSizes.offset)
                      / 100 * (100 - mapSizes.topOffset);  // "100" means 100%
     // TODO: hardcode?
     map = new Matrix<bool>(matrixWidth, matrixHeight, true);
     // TODO: remove hardcode, make macros
-    vectorsBegin = *new Dot(mapSizes.width/2, mapSizes.height);
+    vectorsBegin = Dot(mapSizes.width/2, mapSizes.height);
 }
 
 ConderMap::~ConderMap() {
@@ -104,24 +105,44 @@ void ConderMap::VectorToMap(const std::vector<Conder> &generatedConders) {
     }
 }
 
+using std::cout;
+using std::endl;
+
 int ConderMap::GenVectors(const int &count) {
     assert(!conders.empty());
-    int endDotX = 0, endDotY = 0, tries = 0, i = 0;
+    float maxAngle = abs(Vector(vectorsBegin, Dot(0, map->getHeight())).getAngle());
+    int tries = 0, i = 0;
     for (i = 0; i != count; i++) {
-        endDotX = rand() % (mapSizes.width*4) - mapSizes.width*1.5;
-        auto vector = new Vector(vectorsBegin, Dot(endDotX, endDotY));
-        const auto &angle = vector->getAngle();
-        std::cout << "Angle of generated vector = " << angle << std::endl;
+        float angle = static_cast<float>(rand())
+                    / static_cast<float>(RAND_MAX)
+                    * maxAngle * 2
+                    - maxAngle;
+        auto vector = new Vector(vectorsBegin, angle, -2000);
         auto found = conders.lower_bound(angle);
-        if (found == conders.end()) found--;
-        auto firstConder = found->second;
-        // if ((firstConder.getVectorRange().second.getAngle() >= angle)  // conder crossed!
-        // && (!firstConder.addCrossing(vector))) {  // too much crossings for 1 conder!
-        //     --i;
-        //     delete vector;
-        //     if (tries++ > 10) return i;  // TODO: hardcode! maybe conderCount?
-        //     continue;
-        // }
+
+        if (found == conders.begin()) {
+            // miss
+            vectors.push_back(*vector);
+            continue;
+        } else {
+            found--;
+        }
+
+        auto &firstConder = found->second;
+        if (firstConder.getVectorRange().second.getAngle() >= angle) {
+            // conder crossed!
+            cout << "conder crossed";
+            if (!firstConder.AddCrossing(vector)) {
+                // too much crossings for 1 conder!
+                cout << " (hidden)" << endl;
+                delete vector;
+                --i;
+                if (++tries == 3) return i;  // TODO: hardcode! maybe conderCount?
+                continue;
+            } else {
+                cout << endl;
+            }
+        }
         vectors.push_back(*vector);
     }
 

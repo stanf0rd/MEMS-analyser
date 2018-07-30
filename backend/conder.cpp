@@ -8,7 +8,6 @@ width(w), height(h), delta(d) {}
 Conder::Conder(const Dot _coord, const ConderSizes &_sizes)
 :
 coord(_coord), sizes(_sizes), vectorRange(nullptr) {
-    crossings.resize(3);  // max crossings per conder
     // CountSideAngles();
 };
 
@@ -29,9 +28,11 @@ const VectorPair& Conder::getVectorRange() const {
     return *vectorRange;
 }
 
-bool Conder::addCrossing(const Vector * vector) {
+bool Conder::AddCrossing(const Vector * vector) {
+    // std::cout << "crossings vector size = " << crossings.size() << endl;
     if (crossings.size() == 3) return false;
     crossings.push_back(vector);
+    // std::cout << "crossings vector size = " << crossings.size() << endl;
     return true;
 }
 

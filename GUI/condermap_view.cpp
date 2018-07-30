@@ -33,7 +33,7 @@ void ConderMapView::GenerateScene() {
     map->CountRanges(*generatedConders);
     map->VectorToMap(*generatedConders);
     delete generatedConders;
-    map->GenVectors(config.getVectorCount());
+    std::cout << map->GenVectors(config.getVectorCount()) << endl;
 }
 
 void ConderMapView::DrawConder(const Conder &conder) {
@@ -64,7 +64,7 @@ void ConderMapView::DrawVector(const Vector &vector) {
     auto track = new QGraphicsLineItem(begin.x, begin.y, end.x, end.y);
     // track->setZValue(-100);
     QPen pen(Qt::black);
-    pen.setWidthF(2);
+    // pen.setWidthF(2);
     track->setPen(pen);
     tracks->addToGroup(track);
 }
