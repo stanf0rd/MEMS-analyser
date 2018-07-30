@@ -14,7 +14,7 @@ Q_OBJECT
 
 public:
     explicit ConderMapView(QWidget *parent = 0);
-    // ~ConderMapView();
+    ~ConderMapView();
     void DrawConder(const Conder &conder);
     void DrawVector(const Vector &vector);
     void GenerateScene();

@@ -17,14 +17,20 @@ ConderMapView::ConderMapView(QWidget *parent)
     srand(time(nullptr));       // for conder generation
 }
 
+ConderMapView::~ConderMapView() {
+    delete scene;
+    delete map;
+}
+
 void ConderMapView::GenerateScene() {
     const auto mapSizes = ConderMapSizes(this->width(), this->height());
     auto &config = Configuration::Instance();
-    if (map) delete map;
+    delete map;
     map = new ConderMap(mapSizes, config.getConderSizes());
     auto generatedConders = new vector<Conder>;
     map->GenConders(config.getAskedConderCount(), *generatedConders);
-    map->CountRanges(Dot(this->width()/2, this->height()), *generatedConders);  // TODO: remove hardcode
+    // Dot vectorsBegin(this->width()/2, this->height());
+    map->CountRanges(*generatedConders);
     map->VectorToMap(*generatedConders);
     delete generatedConders;
     map->GenVectors(config.getVectorCount());

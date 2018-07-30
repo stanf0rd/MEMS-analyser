@@ -2,6 +2,7 @@
 #include <cassert>
 #include <iostream>
 #include <random>
+#include <utility>
 // TODO: is iostream needed here?
 
 #include "conder_map.h"
@@ -24,8 +25,16 @@ ConderMap::ConderMap(const ConderMapSizes mSizes, const ConderSizes cSizes)
     int matrixWidth = mapSizes.width - 2*mapSizes.offset - conderSizes.width;
     int matrixHeight = (mapSizes.height - mapSizes.offset)
                      / 100 * (100 - mapSizes.topOffset);  // "100" means 100%
+    // TODO: hardcode?
     map = new Matrix<bool>(matrixWidth, matrixHeight, true);
+    // TODO: remove hardcode, make macros
+    vectorsBegin = *new Dot(mapSizes.width/2, mapSizes.height);
 }
+
+ConderMap::~ConderMap() {
+    delete map;
+}
+
 
 void ConderMap::setVectorsBegin(const Dot dot) {
     vectorsBegin = dot;
@@ -67,23 +76,20 @@ int ConderMap::GenConders(const int &count,
     return conderCount = i;
 }
 
-void ConderMap::CountRanges(
-    const Dot &tracksBegin,
-    vector<Conder> &generatedConders)
-{
+void ConderMap::CountRanges(vector<Conder> &generatedConders) {
     const auto &conderSizes = Configuration::Instance().getConderSizes();
     for (auto &conder : generatedConders) {
         const auto leftVectorEnd =
-            (conder.getCoord().x <= tracksBegin.x) ?
+            (conder.getCoord().x <= vectorsBegin.x) ?
             Dot(conder.getCoord() + Dot(0, conderSizes.height)) :
             Dot(conder.getCoord());
-        auto leftVector = Vector(tracksBegin, leftVectorEnd);
+        auto leftVector = Vector(vectorsBegin, leftVectorEnd);
         // std::cout << leftVector.getAngle();
         const auto rightVectorEnd =
-            (conder.getCoord().x + conderSizes.width <= tracksBegin.x) ?
+            (conder.getCoord().x + conderSizes.width <= vectorsBegin.x) ?
             Dot(conder.getCoord() + Dot(conderSizes.width, 0)) :
             Dot(conder.getCoord() + Dot(conderSizes.width, conderSizes.height));
-        auto rightVector = Vector(tracksBegin, rightVectorEnd);
+        auto rightVector = Vector(vectorsBegin, rightVectorEnd);
 
         conder.setVectorRange(leftVector, rightVector);
         // std::cout << conder.getVectorRange().first.getAngle() << std::endl;
@@ -101,19 +107,21 @@ void ConderMap::VectorToMap(const std::vector<Conder> &generatedConders) {
 int ConderMap::GenVectors(const int &count) {
     assert(!conders.empty());
     int endDotX = 0, endDotY = 0, tries = 0, i = 0;
-
     for (i = 0; i != count; i++) {
-        int endDotX = rand() % (mapSizes.width*10) - (mapSizes.width*4.5);
+        endDotX = rand() % (mapSizes.width*4) - mapSizes.width*1.5;
         auto vector = new Vector(vectorsBegin, Dot(endDotX, endDotY));
         const auto &angle = vector->getAngle();
-        auto firstConder = conders.lower_bound(angle)->second;
-        if ((firstConder.getVectorRange().second.getAngle() >= angle)  // conder crossed!
-        && (!firstConder.addCrossing(vector))) {  // too much crossings for 1 conder!
-            --i;
-            delete vector;
-            if (tries++ > 10) return i;  // TODO: hardcode! maybe conderCount?
-            continue;
-        }
+        std::cout << "Angle of generated vector = " << angle << std::endl;
+        auto found = conders.lower_bound(angle);
+        if (found == conders.end()) found--;
+        auto firstConder = found->second;
+        // if ((firstConder.getVectorRange().second.getAngle() >= angle)  // conder crossed!
+        // && (!firstConder.addCrossing(vector))) {  // too much crossings for 1 conder!
+        //     --i;
+        //     delete vector;
+        //     if (tries++ > 10) return i;  // TODO: hardcode! maybe conderCount?
+        //     continue;
+        // }
         vectors.push_back(*vector);
     }
 

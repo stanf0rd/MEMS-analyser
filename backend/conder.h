@@ -28,9 +28,9 @@ public:
     const std::vector<const Vector *>& getCrossings() const;
 private:
     // range of vectors, which crosses conder
-    const VectorPair *vectorRange;
     std::vector<const Vector *> crossings;
     Dot coord;  // left bottom dot
     const ConderSizes &sizes;
+    const VectorPair *vectorRange;
     void CountSideAngles();
 };

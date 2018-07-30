@@ -21,14 +21,13 @@ struct ConderMapSizes {
 class ConderMap {
 public:
     ConderMap(const ConderMapSizes, const ConderSizes);
-    // ~ConderMap();
+    ~ConderMap();
     int GenVectors(const int &Count);
     int GenConders(const int &count, vector<Conder> &generatedConders);
     void setVectorsBegin(const Dot dot);
     void VectorToMap(const std::vector<Conder>&);
     const Dot& getVectorsBegin() const;
-    void CountRanges(const Dot &tracksBegin,
-                     vector<Conder> &generatedConders);
+    void CountRanges(vector<Conder> &generatedConders);
     const std::map<float, Conder>& getConders() const;
     const std::vector<Vector>& getVectors() const;
 private:
