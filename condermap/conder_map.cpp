@@ -85,7 +85,7 @@ void ConderMap::CountRanges(vector<Conder> &generatedConders) {
             Dot(conder.getCoord() + Dot(0, conderSizes.height)) :
             Dot(conder.getCoord());
         auto leftVector = Vector(vectorsBegin, leftVectorEnd);
-        // std::cout << leftVector.getAngle();
+
         const auto rightVectorEnd =
             (conder.getCoord().x + conderSizes.width <= vectorsBegin.x) ?
             Dot(conder.getCoord() + Dot(conderSizes.width, 0)) :
@@ -93,13 +93,12 @@ void ConderMap::CountRanges(vector<Conder> &generatedConders) {
         auto rightVector = Vector(vectorsBegin, rightVectorEnd);
 
         conder.setVectorRange(leftVector, rightVector);
-        // std::cout << conder.getVectorRange().first.getAngle() << std::endl;
     }
 }
 
 void ConderMap::VectorToMap(const std::vector<Conder> &generatedConders) {
     for (auto conder : generatedConders) {
-        auto &angle = conder.getVectorRange().first.getAngle();
+        auto &angle = conder.getLeftVector().getAngle();
         auto pair = std::make_pair(angle, conder);
         conders.emplace(pair);
     }
@@ -129,7 +128,7 @@ int ConderMap::GenVectors(const int &count) {
         }
 
         auto &firstConder = found->second;
-        if (firstConder.getVectorRange().second.getAngle() >= angle) {
+        if (firstConder.getRightVector().getAngle() >= angle) {
             // conder crossed!
             cout << "conder crossed";
             if (!firstConder.AddCrossing(vector)) {

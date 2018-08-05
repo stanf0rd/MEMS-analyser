@@ -14,8 +14,8 @@ public:
     const int& getTopOffset() const;
     const int& getAskedConderCount() const;
     const int& getVectorCount() const;
-    const int& getGraphicsAreaWidth() const;
-    const int& getGraphicsAreaHeight() const;
+    // const int& getGraphicsAreaWidth() const;
+    // const int& getGraphicsAreaHeight() const;
 
     // void ReadFromUI();
 private:
@@ -25,8 +25,8 @@ private:
     int topOffset;
     int askedConderCount;
     int vectorCount;
-    int graphicsAreaWidth = 0;
-    int graphicsAreaHeight = 0;
+    // int graphicsAreaWidth = 0;
+    // int graphicsAreaHeight = 0;
 
     Configuration();
     ~Configuration() = default;

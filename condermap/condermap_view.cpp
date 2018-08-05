@@ -27,13 +27,12 @@ void ConderMapView::GenerateScene() {
     auto &config = Configuration::Instance();
     delete map;
     map = new ConderMap(mapSizes, config.getConderSizes());
-    auto generatedConders = new vector<Conder>;
-    map->GenConders(config.getAskedConderCount(), *generatedConders);
+    vector<Conder> generatedConders;
+    map->GenConders(config.getAskedConderCount(), generatedConders);
     // Dot vectorsBegin(this->width()/2, this->height());
-    map->CountRanges(*generatedConders);
-    map->VectorToMap(*generatedConders);
-    delete generatedConders;
-    std::cout << map->GenVectors(config.getVectorCount()) << endl;
+    map->CountRanges(generatedConders);
+    map->VectorToMap(generatedConders);
+    // std::cout << map->GenVectors(config.getVectorCount()) << endl;
 }
 
 void ConderMapView::DrawConder(const Conder &conder) {

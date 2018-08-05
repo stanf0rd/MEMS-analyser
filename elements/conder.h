@@ -16,6 +16,7 @@ struct ConderSizes {
     ConderSizes(int w, int h, int d);
 };
 
+
 class Conder {
 public:
     Conder(const Dot coord, const ConderSizes &sizes);
@@ -23,7 +24,8 @@ public:
     const Dot& getCoord() const;
     const ConderSizes& getSizes() const;
     void setVectorRange(Vector left, Vector right);
-    const VectorPair& getVectorRange() const;
+    const Vector& getLeftVector() const;
+    const Vector& getRightVector() const;
     bool AddCrossing(const Vector * vector);
     const std::vector<const Vector *>& getCrossings() const;
 private:
@@ -31,6 +33,6 @@ private:
     std::vector<const Vector *> crossings;
     Dot coord;  // left bottom dot
     const ConderSizes &sizes;
-    const VectorPair *vectorRange;
+    VectorPair vectorRange;
     void CountSideAngles();
 };

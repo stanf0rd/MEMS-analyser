@@ -7,9 +7,9 @@ width(w), height(h), delta(d) {}
 
 Conder::Conder(const Dot _coord, const ConderSizes &_sizes)
 :
-coord(_coord), sizes(_sizes), vectorRange(nullptr) {
-    // CountSideAngles();
-};
+coord(_coord), sizes(_sizes) {}
+
+// Conder::~Conder() {}
 
 const Dot& Conder::getCoord() const {
     return coord;
@@ -20,12 +20,15 @@ const ConderSizes& Conder::getSizes() const {
 }
 
 void Conder::setVectorRange(Vector left, Vector right) {
-    if (vectorRange) delete vectorRange;
-    vectorRange = new VectorPair(left, right);
+    vectorRange = std::make_pair(left, right);
 }
 
-const VectorPair& Conder::getVectorRange() const {
-    return *vectorRange;
+const Vector& Conder::getLeftVector() const {
+    return vectorRange.first;
+}
+
+const Vector& Conder::getRightVector() const {
+    return vectorRange.second;
 }
 
 bool Conder::AddCrossing(const Vector * vector) {

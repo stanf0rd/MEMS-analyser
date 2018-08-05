@@ -19,9 +19,10 @@ FORMS = $$files(*.ui, true)
 
 INCLUDEPATH += \
     GUI \
-    libs \
+    elements \
+    condermap \
     config \
-    backend
+    libs \
 
 DESTDIR = $$PWD
 
@@ -36,3 +37,4 @@ RCC_DIR = $$PWD/temp/.rcc
 UI_DIR = $$PWD/temp/.ui
 
 CONFIG += static
+CONFIG += silent

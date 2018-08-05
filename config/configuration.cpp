@@ -25,8 +25,8 @@ Configuration& Configuration::Instance() {
 void Configuration::Update(MainWindow const &window) {
     window.GetChosenValues(
         conderSizes, offset, topOffset,
-        askedConderCount, vectorCount,
-        graphicsAreaWidth, graphicsAreaHeight
+        askedConderCount, vectorCount//,
+        // graphicsAreaWidth, graphicsAreaHeight
     );
 }
 
@@ -50,10 +50,11 @@ const int& Configuration::getVectorCount() const {
     return vectorCount;
 }
 
-const int& Configuration::getGraphicsAreaWidth() const {
-    return graphicsAreaWidth;
-}
+// TODO: do we need this?
+// const int& Configuration::getGraphicsAreaWidth() const {
+//     return graphicsAreaWidth;
+// }
 
-const int& Configuration::getGraphicsAreaHeight() const {
-    return graphicsAreaHeight;
-}
+// const int& Configuration::getGraphicsAreaHeight() const {
+//     return graphicsAreaHeight;
+// }

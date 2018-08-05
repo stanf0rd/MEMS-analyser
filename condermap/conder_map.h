@@ -22,12 +22,16 @@ class ConderMap {
 public:
     ConderMap(const ConderMapSizes, const ConderSizes);
     ~ConderMap();
-    int GenVectors(const int &Count);
-    int GenConders(const int &count, vector<Conder> &generatedConders);
+
     void setVectorsBegin(const Dot dot);
-    void VectorToMap(const std::vector<Conder>&);
     const Dot& getVectorsBegin() const;
+
+    int GenConders(const int &count, vector<Conder> &generatedConders);
     void CountRanges(vector<Conder> &generatedConders);
+    void VectorToMap(const std::vector<Conder>&);
+
+    int GenVectors(const int &Count);
+
     const std::map<float, Conder>& getConders() const;
     const std::vector<Vector>& getVectors() const;
 private:
