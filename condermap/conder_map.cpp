@@ -1,13 +1,11 @@
-#include <cmath>
+// #include <cmath>
 #include <cassert>
-#include <iostream>
-#include <utility>
-// TODO: is iostream needed here?
+#include <utility>  // make_pair
+#include <cstdlib>  //std::rand
 
 #include "conder_map.h"
 #include "configuration.h"
 
-using std::rand;
 
 ConderMapSizes::ConderMapSizes(const int _w, const int _h)
 : width(_w)
@@ -18,10 +16,10 @@ ConderMapSizes::ConderMapSizes(const int _w, const int _h)
     topOffset = config.getTopOffset();
 }
 
+
 ConderMap::ConderMap(const ConderMapSizes mSizes, const ConderSizes cSizes)
 : conderSizes(cSizes)
 , mapSizes(mSizes)
-, conderCount(0)
 {
     int matrixWidth = mapSizes.width - 2*mapSizes.offset - conderSizes.width;
     int matrixHeight = (mapSizes.height - mapSizes.offset)
@@ -45,15 +43,15 @@ const Dot& ConderMap::getVectorsBegin() const {
     return vectorsBegin;
 }
 
-int ConderMap::GenConders(const int &count,
-                          vector<Conder> &generatedConders) {
-    auto const &config = Configuration::Instance();
+
+int ConderMap::GenConders(const int &count) {
     auto &matrix = *map;
     int x = 0, y = 0, i = 0, tec = 0;
-    int offset = config.getOffset();
+    int offset = mapSizes.offset;
+
     for (i = 0; i < count; i++) {
-        x = rand() % (matrix.getWidth());
-        y = rand() % (matrix.getHeight());
+        x = std::rand() % (matrix.getWidth());
+        y = std::rand() % (matrix.getHeight());
         if (matrix[Dot(x, y)] == 0) {
             Dot begin(x - conderSizes.width - offset,
                       y - conderSizes.height - offset);
@@ -62,11 +60,11 @@ int ConderMap::GenConders(const int &count,
             matrix.fill(begin, end, 1, true);
 
             const Dot realBegin(Dot(x, y) + Dot(mapSizes.offset, mapSizes.offset));
-            generatedConders.push_back(Conder(realBegin, conderSizes));
+            conders.push_back(Conder(realBegin, conderSizes));
 
             // std::cout << "For conder #" << i << " there are " << tec << " cats" << std::endl;
             tec = 0;
-        } else if (tec++ == 100000) {
+        } else if (tec++ == 100000) {  // TODO: clean up
             // std::cout << i << " conders found their places." << std::endl;
             break;
         } else {
@@ -77,35 +75,12 @@ int ConderMap::GenConders(const int &count,
     return conderCount = i;
 }
 
-void ConderMap::CountRanges(vector<Conder> &generatedConders) {
-    const auto &conderSizes = Configuration::Instance().getConderSizes();
-    for (auto &conder : generatedConders) {
-        const auto leftVectorEnd =
-            (conder.getCoord().x <= vectorsBegin.x) ?
-            Dot(conder.getCoord() + Dot(0, conderSizes.height)) :
-            Dot(conder.getCoord());
-        auto leftVector = Vector(vectorsBegin, leftVectorEnd);
 
-        const auto rightVectorEnd =
-            (conder.getCoord().x + conderSizes.width <= vectorsBegin.x) ?
-            Dot(conder.getCoord() + Dot(conderSizes.width, 0)) :
-            Dot(conder.getCoord() + Dot(conderSizes.width, conderSizes.height));
-        auto rightVector = Vector(vectorsBegin, rightVectorEnd);
-
-        conder.setVectorRange(leftVector, rightVector);
+void ConderMap::CountRanges() {
+    for (auto &conder : conders) {
+        conder.CountVectorRange(vectorsBegin);
     }
 }
-
-void ConderMap::VectorToMap(const std::vector<Conder> &generatedConders) {
-    for (auto conder : generatedConders) {
-        auto &angle = conder.getLeftVector().getAngle();
-        auto pair = std::make_pair(angle, conder);
-        conders.emplace(pair);
-    }
-}
-
-using std::cout;
-using std::endl;
 
 int ConderMap::GenVectors(const int &count) {
     assert(!conders.empty());
@@ -117,38 +92,30 @@ int ConderMap::GenVectors(const int &count) {
                     * maxAngle * 2
                     - maxAngle;
         auto vector = new Vector(vectorsBegin, angle, -2000);
-        auto found = conders.lower_bound(angle);
 
-        if (found == conders.begin()) {
-            // miss
-            vectors.push_back(*vector);
-            continue;
-        } else {
-            found--;
-        }
+        // for (const auto &conder : conders) {
+            // if vector.
+        // }
 
-        auto &firstConder = found->second;
-        if (firstConder.getRightVector().getAngle() >= angle) {
-            // conder crossed!
-            cout << "conder crossed";
-            if (!firstConder.AddCrossing(vector)) {
-                // too much crossings for 1 conder!
-                cout << " (hidden)" << endl;
-                delete vector;
-                --i;
-                if (++tries == 3) return i;  // TODO: hardcode! maybe conderCount?
-                continue;
-            } else {
-                cout << endl;
-            }
-        }
-        vectors.push_back(*vector);
+        //     cout << "conder crossed";
+        //     if (!firstConder.AddCrossing(vector)) {
+        //         // too much crossings for 1 conder!
+        //         cout << " (hidden)" << endl;
+        //         delete vector;
+        //         --i;
+        //         if (++tries == 3) return i;  // TODO: hardcode! maybe conderCount?
+        //         continue;
+        //     } else {
+        //         cout << endl;
+        //     }
+        // }
+        // vectors.push_back(*vector);
     }
 
     return i;
 }
 
-const std::map<float, Conder>& ConderMap::getConders() const {
+const std::vector<Conder>& ConderMap::getConders() const {
     return conders;
 }
 

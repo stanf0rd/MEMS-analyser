@@ -10,7 +10,7 @@
 *.pro.user*
 *[Dd]ebug*
 *qmake*
-temp
+.temp
 ui_*.h
 qrc_resource.cpp
 *.pdb

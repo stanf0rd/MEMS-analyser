@@ -1,14 +1,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-//#include <QPicture>
-// #include <QPixmap>
-
 #include "configuration.h"
-// TODO: clean up includes
-#include <iostream>
 
-using std::cout;
-using std::endl;
 
 MainWindow::MainWindow(QWidget *parent)
 :
@@ -30,8 +23,7 @@ MainWindow::~MainWindow() {
 void MainWindow::GetChosenValues(
     ConderSizes &conderSizes,
     int &offset, int &topOffset,
-    int &conderCount, int &vectorCount//,
-    // int &graphicsAreaWidth, int &graphicsAreaHeight
+    int &conderCount, int &vectorCount
 ) const {
     conderSizes.height = ui->conderHeightBox->value();
     conderSizes.width = ui->conderWidthBox->value();
@@ -40,8 +32,6 @@ void MainWindow::GetChosenValues(
     topOffset = ui->topOffsetBox->value();
     conderCount = ui->conderCountBox->value();
     vectorCount = ui->vectorCountBox->value();
-    // graphicsAreaWidth = ui->conderMapView->width();
-    // graphicsAreaHeight = ui->conderMapView->height();
 }
 
 void MainWindow::on_pushButton_clicked() {
@@ -56,7 +46,7 @@ void MainWindow::SetDefaultValues() {
     auto const &config = Configuration::Instance();
     auto &gui = *(this->ui);
     gui.conderCountBox->setValue(config.getAskedConderCount());
-    gui.vectorCountBox->setValue(config.getVectorCount());
+    gui.vectorCountBox->setValue(config.getAskedVectorCount());
     gui.topOffsetBox->setValue(config.getTopOffset());
     gui.offsetBox->setValue(config.getOffset());
     auto const &conderSizes = config.getConderSizes();

@@ -27,11 +27,9 @@ void ConderMapView::GenerateScene() {
     auto &config = Configuration::Instance();
     delete map;
     map = new ConderMap(mapSizes, config.getConderSizes());
-    vector<Conder> generatedConders;
-    map->GenConders(config.getAskedConderCount(), generatedConders);
+    map->GenConders(config.getAskedConderCount());
     // Dot vectorsBegin(this->width()/2, this->height());
-    map->CountRanges(generatedConders);
-    map->VectorToMap(generatedConders);
+    map->CountRanges();
     // std::cout << map->GenVectors(config.getVectorCount()) << endl;
 }
 
@@ -49,8 +47,8 @@ void ConderMapView::DrawConder(const Conder &conder) {
     );
     QBrush brush(Qt::darkGray);
     QPen pen(Qt::darkGray);
-    conderTop->setPen(pen);       // uncomment these two lines
-    conderBottom->setPen(pen);    // to remove black border around conder
+    conderTop->setPen(pen);       // comment these two lines
+    conderBottom->setPen(pen);    // to add pretty black border around conders
     conderTop->setBrush(brush);
     conderBottom->setBrush(brush);
     conders->addToGroup(conderTop);
@@ -75,9 +73,9 @@ void ConderMapView::DrawScene() {
     auto const &conders = map->getConders();
     tracks->setZValue(-1);  // Drawing tracks behind conders
 
-    for (const auto &conderPair : conders) {
+    for (const auto &conder : conders) {
         // const auto conder = conderPair.second;
-        DrawConder(conderPair.second);
+        DrawConder(conder);
         // DrawVector(conder.getVectorRange().first);
         // DrawVector(conder.getVectorRange().second);
     }

@@ -26,15 +26,17 @@ INCLUDEPATH += \
 
 DESTDIR = $$PWD
 
+QMAKE_CXXFLAGS += -std=c++17
+
 unix:QMAKE_CXXFLAGS += \
     -g \
     -Wall \
     -Wextra \
 
-OBJECTS_DIR = $$PWD/temp/.obj
-MOC_DIR = $$PWD/temp/.moc
-RCC_DIR = $$PWD/temp/.rcc
-UI_DIR = $$PWD/temp/.ui
+OBJECTS_DIR = $$PWD/.temp/.obj
+MOC_DIR = $$PWD/.temp/.moc
+RCC_DIR = $$PWD/.temp/.rcc
+UI_DIR = $$PWD/.temp/.ui
 
 CONFIG += static
 CONFIG += silent

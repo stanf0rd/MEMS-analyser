@@ -1,14 +1,12 @@
 #pragma once
 
-#include <map>
 #include <vector>
 
 #include "conder.h"
 #include "matrix.hpp"
 
-using std::map;
-using std::vector;
 using simple_matrix::Matrix;
+
 
 struct ConderMapSizes {
     int width;        // from GUI
@@ -18,6 +16,7 @@ struct ConderMapSizes {
     ConderMapSizes(const int width, const int height);
 };
 
+
 class ConderMap {
 public:
     ConderMap(const ConderMapSizes, const ConderSizes);
@@ -26,14 +25,14 @@ public:
     void setVectorsBegin(const Dot dot);
     const Dot& getVectorsBegin() const;
 
-    int GenConders(const int &count, vector<Conder> &generatedConders);
-    void CountRanges(vector<Conder> &generatedConders);
-    void VectorToMap(const std::vector<Conder>&);
+    int GenConders(const int &count);
+    void CountRanges();
 
-    int GenVectors(const int &Count);
+    int GenVectors(const int &count);
 
-    const std::map<float, Conder>& getConders() const;
+    const std::vector<Conder>& getConders() const;
     const std::vector<Vector>& getVectors() const;
+
 private:
     const ConderSizes conderSizes;
     const ConderMapSizes mapSizes;
@@ -41,7 +40,8 @@ private:
     Matrix<bool> *map;
 
     int conderCount;
-    std::map<float, Conder> conders;
+    int vectorCount;
+    std::vector<Conder> conders;
     std::vector<Vector> vectors;
     Dot vectorsBegin;
 };

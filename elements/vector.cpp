@@ -22,6 +22,7 @@ Vector::Vector(Dot _begin, float _angle, int endY)
     end = Dot(endX, endY);
 }
 
+
 float Vector::CountAngle() {
     int opposCatet = end.x - begin.x;
     int contCatet = begin.y - end.y;
@@ -29,6 +30,7 @@ float Vector::CountAngle() {
     angle *= 180/static_cast<float>(M_PI);
     return angle;
 }
+
 
 const Dot& Vector::getBegin() const {
     return begin;

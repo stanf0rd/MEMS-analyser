@@ -7,7 +7,7 @@ Configuration::Configuration()
 , offset(defaultOffset)
 , topOffset(defaultTopOffset)
 , askedConderCount(defaultConderCount)
-, vectorCount(defaultVectorCount)
+, askedVectorCount(defaultVectorCount)
 {
     ReadConfigFile();
     // TODO: set defaults to mainwindow boxes
@@ -25,7 +25,7 @@ Configuration& Configuration::Instance() {
 void Configuration::Update(MainWindow const &window) {
     window.GetChosenValues(
         conderSizes, offset, topOffset,
-        askedConderCount, vectorCount//,
+        askedConderCount, askedVectorCount//,
         // graphicsAreaWidth, graphicsAreaHeight
     );
 }
@@ -46,8 +46,8 @@ const int& Configuration::getAskedConderCount() const {
     return askedConderCount;
 }
 
-const int& Configuration::getVectorCount() const {
-    return vectorCount;
+const int& Configuration::getAskedVectorCount() const {
+    return askedVectorCount;
 }
 
 // TODO: do we need this?

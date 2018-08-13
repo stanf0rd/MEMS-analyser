@@ -2,11 +2,12 @@
 
 #include <vector>
 #include <utility>
+#include <optional>
 #include "matrix.hpp"
 #include "vector.h"
 
 using simple_matrix::Dot;
-typedef std::pair<Vector, Vector> VectorPair;
+using VectorPair = std::pair<Vector, Vector>;
 
 
 struct ConderSizes {
@@ -20,19 +21,26 @@ struct ConderSizes {
 class Conder {
 public:
     Conder(const Dot coord, const ConderSizes &sizes);
-    // ~Conder();
+    ~Conder() = default;
+
     const Dot& getCoord() const;
     const ConderSizes& getSizes() const;
-    void setVectorRange(Vector left, Vector right);
+
+    bool RangeIsSet() const;
+    void CountVectorRange(const Dot &vectorsBegin);
     const Vector& getLeftVector() const;
     const Vector& getRightVector() const;
+
+    bool IsCrossed(const Vector &vector) const;
     bool AddCrossing(const Vector * vector);
     const std::vector<const Vector *>& getCrossings() const;
+
 private:
-    // range of vectors, which crosses conder
-    std::vector<const Vector *> crossings;
     Dot coord;  // left bottom dot
     const ConderSizes &sizes;
-    VectorPair vectorRange;
-    void CountSideAngles();
+
+    std::vector<const Vector *> crossings;
+    // range of vectors, which crosses conder
+
+    std::optional<VectorPair> vectorRange;
 };
