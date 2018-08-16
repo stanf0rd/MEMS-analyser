@@ -52,14 +52,39 @@ const Vector& Conder::getRightVector() const {
 
 bool Conder::IsCrossed(const Vector &vector) const {
     assert(RangeIsSet());
+    assert(vector.getBegin() == vectorRange->first.getBegin());
+
+    float leftAngle = vectorRange->first.getAngle();
+    float rightAngle = vectorRange->second.getAngle();
+
+    return leftAngle < vector.getAngle()
+        && rightAngle > vector.getAngle();
 }
 
-bool Conder::AddCrossing(const Vector * vector) {
-    if (crossings.size() == 3) return false;  // TODO: hardcode
+void Conder::AddCrossing(const Vector * vector) {
+    assert(IsCrossed(*vector));
+    assert(crossings.size() != 3);
     crossings.push_back(vector);
-    return true;
 }
 
 const std::vector<const Vector *>& Conder::getCrossings() const {
     return crossings;
+}
+
+
+size_t ConderHash::operator()(const Conder &conder) const {
+    return Hash(conder);
+}
+
+size_t ConderHash::operator()(const Conder *const conder) const {
+    return Hash(*conder);
+}
+
+size_t ConderHash::Hash(const Conder &conder) const {
+    std::hash<float> floatHash;
+    if (conder.RangeIsSet()) {
+        return floatHash(conder.getLeftVector().getAngle());
+    } else {
+        return conder.getCoord().x + conder.getCoord().y * 10000;
+    }
 }

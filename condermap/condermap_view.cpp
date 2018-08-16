@@ -30,12 +30,12 @@ void ConderMapView::GenerateScene() {
     map->GenConders(config.getAskedConderCount());
     // Dot vectorsBegin(this->width()/2, this->height());
     map->CountRanges();
-    // std::cout << map->GenVectors(config.getVectorCount()) << endl;
+    std::cout << map->GenVectors(config.getAskedVectorCount()) << endl;
 }
 
 void ConderMapView::DrawConder(const Conder &conder) {
-    const auto coord = conder.getCoord();
-    const auto sizes = conder.getSizes();
+    const auto &coord = conder.getCoord();
+    const auto &sizes = conder.getSizes();
     int plateHeight = (sizes.height - sizes.delta)/2;
     auto conderBottom = new QGraphicsRectItem(
         coord.x, coord.y,
@@ -56,8 +56,8 @@ void ConderMapView::DrawConder(const Conder &conder) {
 }
 
 void ConderMapView::DrawVector(const Vector &vector) {
-    const Dot begin = vector.getBegin();
-    const Dot end = vector.getEnd();
+    const Dot &begin = vector.getBegin();
+    const Dot &end = vector.getEnd();
     auto track = new QGraphicsLineItem(begin.x, begin.y, end.x, end.y);
     // track->setZValue(-100);
     QPen pen(Qt::black);

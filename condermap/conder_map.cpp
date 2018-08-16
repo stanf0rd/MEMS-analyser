@@ -2,6 +2,7 @@
 #include <cassert>
 #include <utility>  // make_pair
 #include <cstdlib>  //std::rand
+#include <unordered_set>
 
 #include "conder_map.h"
 #include "configuration.h"
@@ -82,34 +83,37 @@ void ConderMap::CountRanges() {
     }
 }
 
+
+
 int ConderMap::GenVectors(const int &count) {
     assert(!conders.empty());
     float maxAngle = abs(Vector(vectorsBegin, Dot(0, map->getHeight())).getAngle());
-    int tries = 0, i = 0;
+
+    int i = 0;
     for (i = 0; i != count; i++) {
+        int failures = 0;
         float angle = static_cast<float>(rand())
                     / static_cast<float>(RAND_MAX)
-                    * maxAngle * 2
-                    - maxAngle;
-        auto vector = new Vector(vectorsBegin, angle, -2000);
+                    * maxAngle * 2 - maxAngle;
+        auto vector = new Vector(vectorsBegin, angle, -2000);  // TODO: hardcode
+        vectors.push_back(*vector);
 
-        // for (const auto &conder : conders) {
-            // if vector.
-        // }
+        std::vector<Conder *> crossedConders;
+        for (auto &conder : conders) {
+            if (!conder.IsCrossed(*vector)) continue;
+            if (conder.getCrossings().size() != 3) {  // TODO: hardcode
+                crossedConders.push_back(&conder);
+            } else {
+                vectors.pop_back();
+                if (++failures == conderCount) break;  // he-he
+                else continue;
+            }
+        }
 
-        //     cout << "conder crossed";
-        //     if (!firstConder.AddCrossing(vector)) {
-        //         // too much crossings for 1 conder!
-        //         cout << " (hidden)" << endl;
-        //         delete vector;
-        //         --i;
-        //         if (++tries == 3) return i;  // TODO: hardcode! maybe conderCount?
-        //         continue;
-        //     } else {
-        //         cout << endl;
-        //     }
-        // }
-        // vectors.push_back(*vector);
+        if (failures == conderCount) break;
+        for (auto &conder : crossedConders) {
+            conder->AddCrossing(vector);
+        }
     }
 
     return i;

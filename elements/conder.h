@@ -32,15 +32,23 @@ public:
     const Vector& getRightVector() const;
 
     bool IsCrossed(const Vector &vector) const;
-    bool AddCrossing(const Vector * vector);
+    void AddCrossing(const Vector * vector);
     const std::vector<const Vector *>& getCrossings() const;
 
+    friend struct ConderHash;
 private:
     Dot coord;  // left bottom dot
     const ConderSizes &sizes;
 
+    std::optional<VectorPair> vectorRange;
+
     std::vector<const Vector *> crossings;
     // range of vectors, which crosses conder
+};
 
-    std::optional<VectorPair> vectorRange;
+
+struct ConderHash {
+    size_t operator()(const Conder &conder) const;
+    size_t operator()(const Conder *const conder) const;
+    size_t Hash(const Conder &conder) const;
 };

@@ -10,7 +10,6 @@ Configuration::Configuration()
 , askedVectorCount(defaultVectorCount)
 {
     ReadConfigFile();
-    // TODO: set defaults to mainwindow boxes
 }
 
 void Configuration::ReadConfigFile() {
