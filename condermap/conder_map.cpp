@@ -84,36 +84,36 @@ void ConderMap::CountRanges() {
 }
 
 
+#include <iostream>
 
 int ConderMap::GenVectors(const int &count) {
     assert(!conders.empty());
     float maxAngle = abs(Vector(vectorsBegin, Dot(0, map->getHeight())).getAngle());
 
-    int i = 0;
+    int i = 0, failures = 0;
     for (i = 0; i != count; i++) {
-        int failures = 0;
         float angle = static_cast<float>(rand())
                     / static_cast<float>(RAND_MAX)
                     * maxAngle * 2 - maxAngle;
-        auto vector = new Vector(vectorsBegin, angle, -2000);  // TODO: hardcode
-        vectors.push_back(*vector);
+        Vector vector(vectorsBegin, angle, -2000);  // TODO: hardcode
+        vectors.push_back(vector);
 
         std::vector<Conder *> crossedConders;
         for (auto &conder : conders) {
-            if (!conder.IsCrossed(*vector)) continue;
-            if (conder.getCrossings().size() != 3) {  // TODO: hardcode
-                crossedConders.push_back(&conder);
-            } else {
+            if (!conder.IsCrossed(vector)) continue;
+            if (conder.getCrossings().size() == 3) {  // TODO: hardcode
                 vectors.pop_back();
+                i--;
                 if (++failures == conderCount) break;  // he-he
                 else continue;
+            } else {
+                crossedConders.push_back(&conder);
             }
         }
 
         if (failures == conderCount) break;
-        for (auto &conder : crossedConders) {
-            conder->AddCrossing(vector);
-        }
+        for (auto &conder : crossedConders)
+            conder->AddCrossing(&vector);
     }
 
     return i;

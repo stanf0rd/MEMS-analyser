@@ -7,6 +7,7 @@ using simple_matrix::Dot;
 class Vector {
 public:
     Vector() = default;
+    Vector(const Vector &) = default;
     Vector(Dot begin, Dot end);
     Vector(Dot begin, float angle, int endY);
 

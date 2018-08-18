@@ -13,6 +13,7 @@ using std::endl;
 
 namespace simple_matrix {
 
+
 struct Dot {
     int x;
     int y;
@@ -24,8 +25,10 @@ struct Dot {
     inline friend ostream& operator<<(ostream&, const Dot &dot);
 };
 
+
 Dot::Dot(const Dot &dot) : x(dot.x), y(dot.y) {}
 Dot::Dot(int _x, int _y) : x(_x), y(_y) {}
+
 
 bool operator==(const Dot &left, const Dot &right) {
     return left.x == right.x && left.y == right.y;
