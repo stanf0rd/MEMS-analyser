@@ -26,7 +26,8 @@ INCLUDEPATH += \
 
 DESTDIR = $$PWD
 
-QMAKE_CXXFLAGS += -std=c++17
+unix:QMAKE_CXXFLAGS += -std=c++17
+win32:QMAKE_CXXFLAGS += /std:c++17
 
 unix:QMAKE_CXXFLAGS += \
     -g \
