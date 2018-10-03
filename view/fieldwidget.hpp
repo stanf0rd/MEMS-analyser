@@ -5,26 +5,25 @@
 #include <QGraphicsScene>
 #include <QGraphicsItemGroup>
 
-#include "conder.h"
-#include "vector.h"
-#include "conder_map.h"
+#include "conder.hpp"
+#include "vector.hpp"
 
-class ConderMapView : public QGraphicsView {
+
+class FieldWidget : public QGraphicsView {
 Q_OBJECT
 
 public:
-    explicit ConderMapView(QWidget *parent = 0);
-    ~ConderMapView();
+    explicit FieldWidget(QWidget *parent = 0);
+    ~FieldWidget();
     void DrawConder(const Conder &conder);
     void DrawVector(const Vector &vector);
-    void GenerateScene();
-    void DrawScene();
+    void DrawScene(const std::vector<Conder>&,
+                   const std::vector<Vector>&);
 
 private:
     QGraphicsScene *scene;
     QGraphicsItemGroup *conders;
     QGraphicsItemGroup *tracks;
-    ConderMap *map;
     void resizeEvent(QResizeEvent *event);
     void ClearGroup(QGraphicsItemGroup *group);
 

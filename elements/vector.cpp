@@ -1,7 +1,7 @@
 #define _USE_MATH_DEFINES
 #include <cmath>
 #include <iostream>
-#include "vector.h"
+#include "vector.hpp"
 
 using std::tan;
 using std::atan;

@@ -14,15 +14,16 @@ TEMPLATE = app
 DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES = $$files(*.cpp, true)
-HEADERS = $$files(*.h, true)
+HEADERS = $$files(*.hpp, true)
 FORMS = $$files(*.ui, true)
 
 INCLUDEPATH += \
-    GUI \
+    model \
+    controller \
+    view \
     elements \
-    condermap \
     config \
-    libs \
+    libs
 
 DESTDIR = $$PWD
 

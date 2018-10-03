@@ -4,7 +4,7 @@
 #include <utility>
 #include <optional>
 #include "matrix.hpp"
-#include "vector.h"
+#include "vector.hpp"
 
 using simple_matrix::Dot;
 using VectorPair = std::pair<Vector, Vector>;

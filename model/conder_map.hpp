@@ -1,25 +1,18 @@
+/* by stanford */
 #pragma once
 
 #include <vector>
 
-#include "conder.h"
+#include "configuration.hpp"
+#include "conder.hpp"
 #include "matrix.hpp"
 
 using simple_matrix::Matrix;
 
 
-struct ConderMapSizes {
-    int width;        // from GUI
-    int height;       // from GUI
-    int offset;       // from config
-    int topOffset;    // from config
-    ConderMapSizes(const int width, const int height);
-};
-
-
 class ConderMap {
 public:
-    ConderMap(const ConderMapSizes, const ConderSizes);
+    ConderMap(const Configuration &);
     ~ConderMap();
 
     void setVectorsBegin(const Dot dot);
@@ -35,7 +28,7 @@ public:
 
 private:
     const ConderSizes conderSizes;
-    const ConderMapSizes mapSizes;
+    const FieldSizes fieldSizes;
 
     Matrix<bool> *map;
 

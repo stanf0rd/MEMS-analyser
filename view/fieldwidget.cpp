@@ -1,39 +1,27 @@
 /* by stanford */
 
-#include "condermap_view.h"
-#include "configuration.h"
+#include "fieldwidget.hpp"
+#include "controller.hpp"
 
-ConderMapView::ConderMapView(QWidget *parent)
+
+FieldWidget::FieldWidget(QWidget *parent)
 : QGraphicsView(parent)
 , scene(new QGraphicsScene())
 , conders(new QGraphicsItemGroup())
 , tracks (new QGraphicsItemGroup())
-, map(nullptr)
 {
     this->setScene(scene);
     this->scale(1, -1);         // rotate on 180 degrees
     scene->addItem(conders);
     scene->addItem(tracks);
-    srand(time(nullptr));       // for conder generation
 }
 
-ConderMapView::~ConderMapView() {
+FieldWidget::~FieldWidget() {
     delete scene;
-    delete map;
 }
 
-void ConderMapView::GenerateScene() {
-    const auto mapSizes = ConderMapSizes(this->width(), this->height());
-    auto &config = Configuration::Instance();
-    delete map;
-    map = new ConderMap(mapSizes, config.getConderSizes());
-    map->GenConders(config.getAskedConderCount());
-    // Dot vectorsBegin(this->width()/2, this->height());
-    map->CountRanges();
-    std::cout << map->GenVectors(config.getAskedVectorCount()) << endl;
-}
 
-void ConderMapView::DrawConder(const Conder &conder) {
+void FieldWidget::DrawConder(const Conder &conder) {
     const auto &coord = conder.getCoord();
     const auto &sizes = conder.getSizes();
     int plateHeight = (sizes.height - sizes.delta)/2;
@@ -55,7 +43,7 @@ void ConderMapView::DrawConder(const Conder &conder) {
     conders->addToGroup(conderBottom);
 }
 
-void ConderMapView::DrawVector(const Vector &vector) {
+void FieldWidget::DrawVector(const Vector &vector) {
     const Dot &begin = vector.getBegin();
     const Dot &end = vector.getEnd();
     auto track = new QGraphicsLineItem(begin.x, begin.y, end.x, end.y);
@@ -66,21 +54,25 @@ void ConderMapView::DrawVector(const Vector &vector) {
     tracks->addToGroup(track);
 }
 
-void ConderMapView::DrawScene() {
+void FieldWidget::DrawScene(
+    const std::vector<Conder>& conderList,
+    const std::vector<Vector>& vectorList
+) {
     ClearGroup(conders);
     ClearGroup(tracks);
     scene->setSceneRect(0, 0, this->width(), this->height());
-    auto const &conders = map->getConders();
     tracks->setZValue(-1);  // Drawing tracks behind conders
 
-    for (const auto &conder : conders) {
+    Controller::Instance();
+
+    for (const auto &conder : conderList) {
         // const auto conder = conderPair.second;
         DrawConder(conder);
         // DrawVector(conder.getVectorRange().first);
         // DrawVector(conder.getVectorRange().second);
     }
 
-    for (const auto &vector : map->getVectors()) {
+    for (const auto &vector : vectorList) {
         DrawVector(vector);
     }
 
@@ -88,13 +80,13 @@ void ConderMapView::DrawScene() {
     fitInView(scene->sceneRect(), Qt::KeepAspectRatio);
 }
 
-void ConderMapView::ClearGroup(QGraphicsItemGroup *group) {
+void FieldWidget::ClearGroup(QGraphicsItemGroup *group) {
     foreach(QGraphicsItem *item, scene->items(group->boundingRect())) {
         if (item->group() == group) delete item;
     }
 }
 
-void ConderMapView::resizeEvent(QResizeEvent *event) {
+void FieldWidget::resizeEvent(QResizeEvent *event) {
     QGraphicsView::resizeEvent(event);
     fitInView(scene->sceneRect(), Qt::KeepAspectRatio);
 }

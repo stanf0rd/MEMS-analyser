@@ -1,8 +1,10 @@
-#ifndef MAINWINDOW_H
-#define MAINWINDOW_H
+/* by stanford */
+#pragma once
 
 #include <QMainWindow>
-#include "conder.h"
+#include "configuration.hpp"
+#include "conder.hpp"
+#include "fieldwidget.hpp"
 
 
 namespace Ui {
@@ -16,12 +18,8 @@ public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
 
-    void GetChosenValues(
-        ConderSizes &conderSizes,
-        int &offset, int &topOffset,
-        int &conderCount, int &vectorCount//,
-        // int &graphicsAreaWidth, int &graphicsAreaHeight
-    ) const;
+    FieldWidget* getFieldWidget();
+    const Configuration GetCurrentConfig() const;
 
 private slots:
     void on_pushButton_clicked();
@@ -32,5 +30,3 @@ private:
     // QPixmap background;
     // void resizeEvent(QResizeEvent* event);
 };
-
-#endif  // MAINWINDOW_H

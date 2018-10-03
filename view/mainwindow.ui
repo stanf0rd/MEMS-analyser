@@ -48,7 +48,7 @@
        <enum>QLayout::SetMinimumSize</enum>
       </property>
       <item>
-       <widget class="ConderMapView" name="conderMapView">
+       <widget class="FieldWidget" name="fieldWidget">
         <property name="minimumSize">
          <size>
           <width>280</width>
@@ -623,9 +623,9 @@
  <layoutdefault spacing="6" margin="11"/>
  <customwidgets>
   <customwidget>
-   <class>ConderMapView</class>
+   <class>FieldWidget</class>
    <extends>QGraphicsView</extends>
-   <header>condermap_view.h</header>
+   <header>fieldwidget.hpp</header>
   </customwidget>
  </customwidgets>
  <resources/>

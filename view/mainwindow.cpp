@@ -1,6 +1,8 @@
-#include "mainwindow.h"
+#include "mainwindow.hpp"
 #include "ui_mainwindow.h"
-#include "configuration.h"
+#include "controller.hpp"
+#include "configuration.hpp"
+#include "config.hpp"
 
 
 MainWindow::MainWindow(QWidget *parent)
@@ -20,39 +22,60 @@ MainWindow::~MainWindow() {
     delete ui;
 }
 
-void MainWindow::GetChosenValues(
-    ConderSizes &conderSizes,
-    int &offset, int &topOffset,
-    int &conderCount, int &vectorCount
-) const {
-    conderSizes.height = ui->conderHeightBox->value();
-    conderSizes.width = ui->conderWidthBox->value();
-    conderSizes.delta = ui->conderDeltaBox->value();
-    offset = ui->offsetBox->value();
-    topOffset = ui->topOffsetBox->value();
-    conderCount = ui->conderCountBox->value();
-    vectorCount = ui->vectorCountBox->value();
+FieldWidget* MainWindow::getFieldWidget() {
+    return ui->fieldWidget;
 }
 
-void MainWindow::on_pushButton_clicked() {
-    Configuration::Instance().Update(*this);
-    this->ui->conderMapView->GenerateScene();
-    this->ui->conderMapView->DrawScene();
+
+const Configuration MainWindow::GetCurrentConfig() const {
+    const FieldSizes fieldSizes(
+        // TODO: FIXME: check if this is right
+        ui->fieldWidget->width(),
+        ui->fieldWidget->height(),
+        ui->offsetBox->value(),
+        ui->topOffsetBox->value()
+    );
+
+    const ConderSizes conderSizes(
+        ui->conderWidthBox->value(),
+        ui->conderHeightBox->value(),
+        ui->conderDeltaBox->value()
+    );
+
+    const Configuration config(
+        fieldSizes,
+        conderSizes,
+        ui->vectorCountBox->value(),
+        ui->conderCountBox->value()
+    );
+
+    return config;
 }
+
 
 void MainWindow::SetDefaultValues() {
     // TODO: set capacitors position
     // TODO: set capacitors type
-    auto const &config = Configuration::Instance();
+
     auto &gui = *(this->ui);
-    gui.conderCountBox->setValue(config.getAskedConderCount());
-    gui.vectorCountBox->setValue(config.getAskedVectorCount());
-    gui.topOffsetBox->setValue(config.getTopOffset());
-    gui.offsetBox->setValue(config.getOffset());
-    auto const &conderSizes = config.getConderSizes();
+
+    const auto &config = defaultConfig;
+    gui.conderCountBox->setValue(config.askedConderCount);
+    gui.vectorCountBox->setValue(config.askedVectorCount);
+
+    const auto &fieldSizes = config.fieldSizes;
+    gui.topOffsetBox->setValue(fieldSizes.topOffset);
+    gui.offsetBox->setValue(fieldSizes.offset);
+
+    const auto &conderSizes = config.conderSizes;
     gui.conderWidthBox->setValue(conderSizes.width);
     gui.conderHeightBox->setValue(conderSizes.height);
     gui.conderDeltaBox->setValue(conderSizes.delta);
+}
+
+void MainWindow::on_pushButton_clicked() {
+    auto &controller = Controller::Instance();
+    controller.Generate(GetCurrentConfig());
 }
 
 /* void MainWindow::resizeEvent(QResizeEvent* event) {
@@ -64,7 +87,6 @@ void MainWindow::SetDefaultValues() {
     int h = this->height();
     // cout << "maplabel width = " << w << endl;
     // cout << "maplabel height = " << h << endl << endl;
-
 
     // w = this->width() - ;
     // h = this->height() - 20;

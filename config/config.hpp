@@ -4,8 +4,8 @@
 
 #pragma once
 
-#include "conder.h"
-
+#include "conder.hpp"
+#include "configuration.hpp"
 
 /*************** DEFAULT CONDER SIZES ****************\
 
@@ -30,10 +30,13 @@
 \*****************************************************/
 
 
-/***************** DEFAULT MAP SIZES *****************\
+/**************** DEFAULT FIELD SIZES ****************\
 */
     const int defaultOffset = 5;        // in pixels
     const int defaultTopOffset = 30;    // in percent
+    const FieldSizes defaultFieldSizes(
+        0, 0, defaultOffset, defaultTopOffset
+    );
 /*
 \*****************************************************/
 
@@ -50,5 +53,25 @@
 */
     const int defaultConderCount = 20;
     const int defaultVectorCount = 20;
+/*
+\*****************************************************/
+
+
+/*************** LEAKS COUNTER SETTINGS **************\
+*/
+    const int maxCrossingsCount = 3;
+    const int angleCount = 89;
+/*
+\*****************************************************/
+
+
+/********************** SUMMARY **********************\
+*/
+    const Configuration defaultConfig(
+        defaultFieldSizes,
+        defaultConderSizes,
+        defaultConderCount,
+        defaultVectorCount
+    );
 /*
 \*****************************************************/

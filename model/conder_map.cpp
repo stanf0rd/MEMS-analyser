@@ -1,34 +1,28 @@
+/* by stanford */
+
 // #include <cmath>
 #include <cassert>
 #include <utility>  // make_pair
 #include <cstdlib>  //std::rand
 #include <unordered_set>
 
-#include "conder_map.h"
-#include "configuration.h"
+#include "conder_map.hpp"
+#include "fieldwidget.hpp"
+#include "configuration.hpp"
 
+#include <iostream>
 
-ConderMapSizes::ConderMapSizes(const int _w, const int _h)
-: width(_w)
-, height(_h)
+ConderMap::ConderMap(const Configuration &config)
+: conderSizes(config.conderSizes)
+, fieldSizes(config.fieldSizes)
 {
-    auto &config = Configuration::Instance();
-    offset = config.getOffset();
-    topOffset = config.getTopOffset();
-}
-
-
-ConderMap::ConderMap(const ConderMapSizes mSizes, const ConderSizes cSizes)
-: conderSizes(cSizes)
-, mapSizes(mSizes)
-{
-    int matrixWidth = mapSizes.width - 2*mapSizes.offset - conderSizes.width;
-    int matrixHeight = (mapSizes.height - mapSizes.offset)
-                     / 100 * (100 - mapSizes.topOffset);  // "100" means 100%
+    int matrixWidth = fieldSizes.width - 2*fieldSizes.offset - conderSizes.width;
+    int matrixHeight = (fieldSizes.height - fieldSizes.offset)
+                     / 100 * (100 - fieldSizes.topOffset);  // "100" means 100%
     // TODO: hardcode?
     map = new Matrix<bool>(matrixWidth, matrixHeight, true);
     // TODO: remove hardcode, make macros
-    vectorsBegin = Dot(mapSizes.width/2, mapSizes.height);
+    vectorsBegin = Dot(fieldSizes.width/2, fieldSizes.height);
 }
 
 ConderMap::~ConderMap() {
@@ -48,7 +42,7 @@ const Dot& ConderMap::getVectorsBegin() const {
 int ConderMap::GenConders(const int &count) {
     auto &matrix = *map;
     int x = 0, y = 0, i = 0, tec = 0;
-    int offset = mapSizes.offset;
+    int offset = fieldSizes.offset;
 
     for (i = 0; i < count; i++) {
         x = std::rand() % (matrix.getWidth());
@@ -60,7 +54,7 @@ int ConderMap::GenConders(const int &count) {
                     y + conderSizes.height + offset + 1);
             matrix.fill(begin, end, 1, true);
 
-            const Dot realBegin(Dot(x, y) + Dot(mapSizes.offset, mapSizes.offset));
+            const Dot realBegin(Dot(x, y) + Dot(fieldSizes.offset, fieldSizes.offset));
             conders.push_back(Conder(realBegin, conderSizes));
 
             // std::cout << "For conder #" << i << " there are " << tec << " cats" << std::endl;
@@ -84,7 +78,7 @@ void ConderMap::CountRanges() {
 }
 
 
-#include <iostream>
+#include <iostream>  // TODO: wtf
 
 int ConderMap::GenVectors(const int &count) {
     assert(!conders.empty());
