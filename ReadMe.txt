@@ -1,12 +1,10 @@
 ﻿==========================================================
                        MEMS-analyser
-                       
-  [PROJECT IS FROZEN AND WILL BE REWRITTEN USING PYTHON]
 ==========================================================
 
-                     stanford: main code
-                mouseartiom: Windows support 
+                        by stanford
 
 //////////////////////////////////////////////////////////
-                      powered by OpenGL
+                       written in C++
+                       powered by QT
 //////////////////////////////////////////////////////////
